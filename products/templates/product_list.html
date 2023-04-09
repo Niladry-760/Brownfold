@@ -1,0 +1,155 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} All Product List {% endblock %}
+
+{% block content %}
+    <div class="mainWrapper templatesWrapper">
+
+        <div class="categoryTitle">
+            <div class="rotateWrapper">
+                <div class="name">
+                    <div>
+                        All <span class="count">(62 )</span>
+                    </div>
+                </div>
+                <a href="#" class="changeBtn">
+                    <div>
+                        Change profession
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="scrollHint">
+            <div class="rotateWrapper">
+                <div>
+                    Scroll down
+                </div>
+            </div>
+        </div>
+
+        <section class="templatesStart fullHeight">
+            <div class="outer">
+                <div class="inner">
+                    <h1 class="title">
+                        <div>
+                            <div>BROWN</div>
+                        </div>
+                        <div>
+                            <div>FOLD</div>
+                        </div>
+                        <div>
+                            <div>store</div>
+                        </div>
+                    </h1>
+                    <div class="counter">
+                        <div>
+                            60+ designs
+                        </div>
+                    </div>
+                    <div class="hint">
+                        <div>
+                            Scroll down to look at all designs<br>
+                            or choose your profession below:
+                        </div>
+                    </div>
+                    <form id="filter-form" action="https://icvtemplates.com/templates" method="get">
+                        <div class="mainSelectWrapper">
+                            <!--                    <div class="selectHolder">-->
+                            <select id="c" class="categorySelect" name="c">
+
+                                <option value="">All (62)</option>
+                                {% for item in category_list %}
+                                <option value="{{ item.id }}">{{ item.name }} ({{ item.products.count }})</option>
+                                {% endfor %}
+                            </select> <!--                    </div>-->
+
+                            <div class="autocompleteWrapper"></div>
+                        </div>
+                        <div class="btnWrapper">
+                            <a href="#" class="scrollTrigger">
+                                Let's scroll
+                            </a>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="templatesList scrollPager">
+            <div class="wrapper">
+                <div class="categoryName">
+                    All:
+                </div>
+                <div class="templatesListWrapper">
+                    <div id="w0">
+                        <div id="w1" class="list-view">
+                            {% for obj in product_list %}
+                            <div class="item templateItem" data-key="{{ obj.id }}">
+
+                                <div class="imgWrapper">
+                                    <div class="imgBlock">
+                                        <a href="templates/Arch1.html" class="toProfile">
+                                            {% if obj.image_1 %}
+                                                <img src="{{ obj.image_1.url }}"
+                                                    alt="Tempalte 1"> 
+                                            {% else %}
+                                                <img src="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}"
+                                                    alt="Tempalte 1"> 
+                                            {% endif %}
+                                        </a>
+                                        <a class="toCartBtn" href="cart/index.html" data-formatting="150.00"
+                                            {% if obj.image_1 %} 
+                                                data-img="{{ obj.image_1.url }}"
+                                            {% else %}
+                                                data-img="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}"
+                                            {% endif %}
+                                            data-title="ARCH 1" data-price="$35.00" data-formatting-html="$150.00">Add
+                                            to cart</a> <a class="toWishlist" href="product/wish/66.html"><img
+                                                src="assets/d44acf32/img/Favorite.svg" class="svg "></a> <a
+                                            class="fromWishlist hidden" href="product/unwish/66.html"><img
+                                                src="{% static 'assets/d44acf32/img/like_cross.svg' %}" class="svg "></a>
+                                    </div>
+                                </div>
+                                <div class="allInfoWrapper">
+                                    <div class="categories">
+                                        <a href="templates481e.html?c=4">
+                                            {{ obj.category.name }} </a>
+                                    </div>
+                                    <a href="templates/Arch1.html" class="title">
+                                        {{ obj.name }}</a>
+                                    <div class="infoWrapper">
+                                        <div class="ratingWrapper">
+                                            <div class="label">
+                                                Rating:
+                                            </div>
+                                            <div class="rating">
+                                                <span class=""></span>
+                                                <span class=""></span>
+                                                <span class="active"></span>
+                                                <span class=""></span>
+                                                <span class=""></span>
+                                            </div>
+                                        </div>
+                                        <div class="priceWrapper">
+                                            <div class="label currency">
+                                                USD
+                                            </div>
+                                            <div class="value">
+                                                ${{ obj.product_price }} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="progressBar"></div>
+    </div>
+    {% endblock %}

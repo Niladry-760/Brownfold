@@ -1,0 +1,392 @@
+{% load static %}
+<html lang="en-US">
+
+<!-- Mirrored from icvtemplates.com/templates by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Mar 2023 16:49:26 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/d44acf32/img/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/d44acf32/img/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/d44acf32/img/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/d44acf32/img/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/d44acf32/img/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/d44acf32/img/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/d44acf32/img/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/d44acf32/img/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/d44acf32/img/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/d44acf32/img/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/d44acf32/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/d44acf32/img/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/d44acf32/img/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/d44acf32/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'assets/d44acf32/img/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% block title %} {% endblock %}</title>
+
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="bUlvOUxxZGk9Jxt3DR1dKAgLPW80CQkxGH8.dCM7ISIcAhkPfwQ2HQ==">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:400,700|Poppins:500,600,700" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/jquery.fullPage042b.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/jquery-ui.min042b.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/compare042b.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/perfect-scrollbar.min042b.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/swiper.min042b.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/stylec047.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/d44acf32/css/responsivee6e2.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/da206a23/jquery.scrollPager8dee.css' %}" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165746097-1"></script>
+
+    {% block css %}
+
+    {% endblock %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-165746097-1');
+    </script>
+
+    <!-- Hotjar Tracking Code for https://icvtemplates.com/ -->
+
+    <script>
+
+        (function (h, o, t, j, a, r) {
+
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+
+            h._hjSettings = { hjid: 1799918, hjsv: 6 };
+
+            a = o.getElementsByTagName('head')[0];
+
+            r = o.createElement('script'); r.async = 1;
+
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+
+            a.appendChild(r);
+
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+
+    </script>
+</head>
+
+<body class="beforePreload ">
+
+
+    <div class="cartWrapper">
+
+
+        <div class="countWrapper empty">
+            <div>
+                Your Cart: Empty
+            </div>
+        </div>
+        <div class="valign100h"></div>
+    </div>
+    <div class="cartOverlay"></div>
+
+    {% block header %}
+
+    <header>
+        <a href="{% url 'index' %}" class="logoWrapper">
+            <img src="{% static 'assets/images/Logo.svg' %}" alt="logo" class="svg">
+        </a>
+        <div class="actionBtnWrapper">
+            <a href="wishlist.html" class="wishlistTrigger">
+                <img src="{% static 'assets/d44acf32/img/Favoritemenu.svg' %}" class="svg stroke">
+            </a>
+            <!--        <a href="#">-->
+            <!--            <img src="--><!--/img/template.svg" class="svg stroke">-->
+            <!--        </a>-->
+            <a href="#" class="cartTrigger">
+                <img src="{% static 'assets/d44acf32/img/bag.svg' %}" class="svg">
+                <span class="counter"></span>
+            </a>
+            <a href="#" class="menuTrigger">
+                <img src="{% static 'assets/d44acf32/img/menu.svg' %}" class="svg stroke">
+            </a>
+        </div>
+    </header>
+
+    {% endblock %}
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    {% block menu %}
+    <div class="menu">
+        <div class="wrapper">
+          <div class="menuContent">
+            <a href="/" class="logo">
+              <img src="{% static 'assets/images/Logo.svg' %}" class="svg" />
+            </a>
+            <div class="outer">
+              <div class="inner">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="{% url 'index' %}">
+                        <div>Homepage</div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'product:all_product_list' %}">
+                        <div>View Marketplace</div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/cvcontent">
+                        <div>Blogs</div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/cvcontent">
+                        <div>Case Studies</div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/contact">
+                        <div>Contact us</div>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="terms-links">
+                    <a href="/policy">
+                      <div>Privacy Policy</div>
+                    </a>
+                    <a href="/terms">
+                      <div>Terms & Conditions</div>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+    
+          <div class="newestTemplateWrapper">
+            <div class="outer">
+              <div class="inner">
+                <div class="label">
+                  <div></div>
+                </div>
+                <div class="templateImage">
+                  <a href="/templates/SapphireBlue">
+                    <img src="{% static 'uploads/product/74/6e1d7f0fa3e1e92dbb5c618c5349d4a7.png' %}" />
+                  </a>
+                </div>
+                <a href="/templates/SapphireBlue" class="exploreBtn">
+                  <div style="color: black;">Explore</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+
+
+    {% block footer %}
+    <footer>
+        <div class="copyright">
+            <span>ICV Templates</span> © 2023. All rights reserved.
+        </div>
+        <div class="snWrapper">
+            <a href="#" class="snTrigger">
+                <img src="assets/d44acf32/img/share.svg" class="svg">
+            </a>
+            <div class="snLinks">
+                <div class="mobileSection">
+                    <div>
+                        Social networks:
+                    </div>
+
+                    <a target="_blank" href="https://www.instagram.com/icv_templates/">
+                        <img src="assets/d44acf32/img/insta.svg" class="svg" height="16">
+                    </a>
+                    <a target="_blank" href="https://www.facebook.com/icv.templates.5">
+                        <img src="assets/d44acf32/img/Facebook.svg" class="svg" height="16">
+                    </a>
+                    <a target="_blank" href="https://twitter.com/IcvTemplates">
+                        <img src="assets/d44acf32/img/Shape.svg" class="svg" height="13">
+                    </a>
+                </div>
+                <a target="_blank"
+                    href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://icvtemplates.com/templates">
+                    <img src="assets/d44acf32/img/LinkedIn.svg" class="svg" height="15">
+                </a>
+                <a target="_blank" href="http://www.twitter.com/share?url=https://icvtemplates.com/templates">
+                    <img src="assets/d44acf32/img/Shape.svg" class="svg" height="13">
+                </a>
+                <a target="_blank" href="http://www.facebook.com/sharer.php?u=https://icvtemplates.com/templates">
+                    <img src="assets/d44acf32/img/Facebook.svg" class="svg" height="16">
+                </a>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+
+    <div class="preloader">
+
+        <div class="outer">
+            <div class="inner">
+                <div id="circle"></div>
+
+                <div class="percentage">
+                </div>
+
+                <div class="text">
+                    <div>
+                        <div>
+                            <div>
+                                WELCOME TO
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                BROWNFOLD
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div>
+                                LOADING
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                THE ART OF CV
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div>
+                                YOU’RE ALL SET
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notify">
+        <div></div>
+    </div>
+
+    <div class="addFormattingPopup">
+        <div class="outer">
+            <div class="inner">
+                <div class="wrapper">
+                    <div class="productInfo">
+                        <div class="infoWrapper">
+                            <div class="imgWrapper">
+                                <img>
+                            </div>
+                            <div class="title"></div>
+                        </div>
+                        <div class="price"></div>
+                    </div>
+                    <div class="formattingInfo main">
+                        <div class="checkboxWrapper">
+                            <input type="checkbox" id="formatting_cb">
+                            <label for="formatting_cb">Add formatting services</label>
+                        </div>
+                        <div class="price">
+                            + <span class="value"></span>
+                        </div>
+                        <div class="hint">
+                            <p>+ Format your CV data into our template<br />
+                                + Delivery Time 3 - 5 days<br />
+                                + Formatting Price is for upto 5 pages max<br />
+                                (Additional $10 per page will be applicable)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="formattingInfo">
+                        <div class="checkboxWrapper">
+                            <div>Restricted features</div>
+                        </div>
+                        <div class="icon">
+                            <a href="https://www.youtube.com/watch?v=3nFLrju8OUo&amp;feature=youtu.be" target="_blank">
+                                <img src="assets/d44acf32/img/feature4.svg">
+                            </a>
+                        </div>
+                        <div class="hint block">
+                            Click on video icon to watch the features that are restricted in the Word file.
+                        </div>
+                    </div>
+                    <div class="actionsWrapper">
+                        <a href="#" class="cancelBtn">
+                            Cancel
+                        </a>
+                        <a href="#" class="toCartBtn formatting">
+                            Proceed to Buy
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="error popupIE">
+
+        <div class="inner">
+            <img src="{% static 'assets/d44acf32/img/ie.png' %}" class="ieImg">
+            <div class="title">Not compatible<br>
+                with Internet Explorer
+            </div>
+            <div class="desc">
+                We recommend to open this<br>
+                website with Google Chrome
+            </div>
+            <a href="https://www.google.ru/chrome/browser/" target="_blank" class="btn">
+                Download Chrome
+            </a>
+        </div>
+
+    </section>
+
+    <script src="{% static 'assets/220d0582/jquery95b9.js' %}"></script>
+    <script src="{% static 'assets/2e3e25d2/yiib7dc.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/jquery.fullPage.min2122.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/svgConvert.min19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/jquery-ui.min19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/jquery.easing19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/jquery.cookie2122.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/isIE2122.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/modernizr19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/jquery.mobile.custom.min19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/compare07df.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/perfect-scrollbar.jquery.min19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/swiper.jquery.min19e8.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/jpreloaderd696.js' %}"></script>
+    <script src="{% static 'assets/d44acf32/js/libs/circle-progress.mind696.js' %}"></script>
+    <script src="../www.paypalobjects.com/api/checkout.js"></script>
+    <script src="{% static 'assets/d44acf32/js/mainc047.js' %}"></script>
+    <script src="{% static 'assets/2e3e25d2/yii.activeFormb7dc.js' %}"></script>
+    <script src="{% static 'assets/da206a23/jquery.scrollPager70e4.js' %}"></script>
+    <script src="{% static 'assets/3dbe2cd2/jquery.pjaxeb6c.js' %}"></script>
+    <script type="text/javascript">jQuery(document).ready(function () {
+            jQuery('#filter-form').yiiActiveForm([], []);
+            $('.list-view').scrollPager({ "wrapper": ".list-view", "pagination": ".pagination", "next": ".pagination .next a:first", "bufferPx": 150, "pjax": { "container": "#w0" }, "item": ".item", "animate": false });
+        });</script>
+</body>
+
+<!-- Mirrored from icvtemplates.com/templates by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 23 Mar 2023 16:51:23 GMT -->
+
+</html>

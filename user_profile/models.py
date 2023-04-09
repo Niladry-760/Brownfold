@@ -118,6 +118,5 @@ def create_user_on_profile_create(instance, created, **kwargs):
     """
     Signal to create a Profile whenever a user Registers.
     """
-    country = CountryMaster.objects.get(id=12)
     Profile.objects.update_or_create(user=instance, defaults={
-                                     'email': instance.email, 'country': country})
+                                     'email': instance.email,})

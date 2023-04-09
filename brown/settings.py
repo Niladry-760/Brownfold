@@ -40,9 +40,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'ckeditor',  # pip install django-ckeditor
+    'ckeditor_uploader',  # pip install django-ckeditor
+
     'app',
     'user_profile',
+    'products',
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'special': {
+        'toolbar': 'Special',
+        'width': 'auto',
+        'toolbar_Special': [
+            ['Styles', 'Font','Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo'],
+            ['Link', 'Unlink', 'Anchor','JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar', 'CodeSnippet'], ['Source'],
+        ],
+        'extraPlugins' : 'codesnippet',
+
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

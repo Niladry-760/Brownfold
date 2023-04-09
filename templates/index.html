@@ -812,7 +812,7 @@
                 each graphic design submission easy and fast.
               </div>
               <div class="col-12 d-flex justify-content-start">
-                <button class="see-2-btn">See plans</button>
+                <button class="see-2-btn">BOOK A CALL WITH US</button>
               </div>
               <div class="col-12 mb-5">
 
@@ -1305,29 +1305,34 @@
     <a href="#treading" data-menuanchor="clients"> 7 </a>
     <a href="#connect" data-menuanchor="connect"> 8 </a>
   </div>
-  <!-- <div class="menu">
+  <div class="menu">
     <div class="wrapper">
       <div class="menuContent">
         <a href="/" class="logo">
-          <img src="https://icvtemplates.com/{% static 'assets/images/Logo.svg' %}" class="svg" />
+          <img src="{% static 'assets/images/Logo.svg' %}" class="svg" />
         </a>
         <div class="outer">
           <div class="inner">
             <nav>
               <ul>
                 <li>
-                  <a href="/">
+                  <a href="{% url 'index' %}">
                     <div>Homepage</div>
                   </a>
                 </li>
                 <li>
-                  <a href="/templates">
-                    <div>Templates</div>
+                  <a href="{% url 'product:all_product_list' %}">
+                    <div>View Marketplace</div>
                   </a>
                 </li>
                 <li>
                   <a href="/cvcontent">
-                    <div>CV content</div>
+                    <div>Blogs</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/cvcontent">
+                    <div>Case Studies</div>
                   </a>
                 </li>
                 <li>
@@ -1347,12 +1352,6 @@
             </nav>
           </div>
         </div>
-        <a href="http://zipl.pro/" target="_blank" class="zipl">
-          <span>
-            Created by
-            <img src="https://icvtemplates.com/assets/d44acf32/img/zipl.svg" class="svg" />
-          </span>
-        </a>
       </div>
 
       <div class="newestTemplateWrapper">
@@ -1363,17 +1362,17 @@
             </div>
             <div class="templateImage">
               <a href="/templates/SapphireBlue">
-                <img src="/uploads/product/74/6e1d7f0fa3e1e92dbb5c618c5349d4a7.png" />
+                <img src="{% static 'uploads/product/74/6e1d7f0fa3e1e92dbb5c618c5349d4a7.png' %}" />
               </a>
             </div>
             <a href="/templates/SapphireBlue" class="exploreBtn">
-              <div>Explore</div>
+              <div style="color: black;">Explore</div>
             </a>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <!-- <footer>
     <div class="snWrapper">
