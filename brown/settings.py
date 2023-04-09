@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-
+BACKUP_DIR = os.path.join(BASE_DIR, 'backup')
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'ckeditor',  # pip install django-ckeditor
     'ckeditor_uploader',  # pip install django-ckeditor
+    'dbbackup',  # pip install django-dbbackup
 
     'app',
     'user_profile',
@@ -65,6 +66,9 @@ CKEDITOR_CONFIGS = {
 
     }
 }
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': BACKUP_DIR}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
