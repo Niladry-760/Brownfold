@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  color: #4A4A4A;
+  color: #4a4a4a;
   background: #fde722;
   scroll-behavior: smooth;
   width: 100%;
@@ -3016,6 +3016,7 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   left: 0;
   top: 0;
   text-transform: uppercase;
+  background: #fde722;
   opacity: 0;
   visibility: hidden;
   z-index: 5;
@@ -3088,7 +3089,7 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
 }
 .menu .wrapper .menuContent nav {
   margin: 0;
-  padding: 0;
+  padding: 57px 0 0px 0;
 }
 .menu .wrapper .menuContent nav ul {
   margin: 0;
@@ -3168,6 +3169,7 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
+  background: #7127d0;
 }
 .menu .wrapper .newestTemplateWrapper .label {
   color: #181818;

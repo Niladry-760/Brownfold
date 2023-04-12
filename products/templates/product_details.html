@@ -1,0 +1,215 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} Product Details {% endblock %}
+
+{% block content %}
+<div class="mainWrapper">
+    <section class="templateDetail fullHeight">
+        <div class="wrapper">
+            <a href="{% url 'product:all_product_list' %}" class="backBtn">
+                <span>
+                    <span class="desktop">
+                        BACK TO TEMPLATES
+                    </span>
+                    <span class="mobile">
+                        Go back
+                    </span>
+                </span>
+            </a>
+            <div class="imgBlock">
+                <div class="thumbsList">
+                    <div>
+                        <a href="#" class="thumbWrapper active">
+                            <div class="label">
+                                <div>
+                                    PG 1 </div>
+                            </div>
+                            <div class="imgWrapper">
+                                {% if product_details.image_1 %}
+                                    <img src="{{ product_details.image_1.url }}">
+                                {% else %}
+                                    <img src="{% static 'uploads/product/gallery/66/131/original798d.jpg' %}">
+                                {% endif %}
+                            </div>
+                        </a>
+                        <a href="#" class="thumbWrapper ">
+                            <div class="label">
+                                <div>
+                                    PG 2 </div>
+                            </div>
+                            <div class="imgWrapper">
+                                {% if product_details.image_2 %}
+                                    <img src="{{ product_details.image_2.url }}">
+                                {% else %}
+                                    <img src="{% static 'uploads/product/gallery/66/129/original8e41.jpg' %}">
+                                {% endif %}
+                            </div>
+                        </a>
+                        <a href="#" class="thumbWrapper ">
+                            <div class="label">
+                                <div>
+                                    PG 3 </div>
+                            </div>
+                            <div class="imgWrapper">
+                                {% if product_details.image_3 %}
+                                    <img src="{{ product_details.image_3.url }}">
+                                {% else %}
+                                    <img src="{% static 'uploads/product/gallery/66/127/originalc5cd.jpg' %}">
+                                {% endif %}
+                            </div>
+                        </a>
+                        <!-- <a href="#" class="thumbWrapper ">
+                            <div class="label">
+                                <div>
+                                    COVER LETTER </div>
+                            </div>
+                            <div class="imgWrapper">
+                                <img src="../uploads/product/gallery/66/130/original8e41.jpg?_=1532348426">
+                            </div>
+                        </a> -->
+                    </div>
+                </div>
+                <div class="imgWrapper bigImgWrapper">
+                    {% if product_details.image_1 %}
+                        <img src="{{ product_details.image_1.url }}">
+                    {% else %}
+                        <img src="{% static 'uploads/product/gallery/66/131/original798d.jpg' %}">
+                    {% endif %}
+                </div>
+                <div class="swiper-container mobileSlider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            {% if product_details.image_1 %}
+                                <img src="{{ product_details.image_1.url }}">
+                            {% else %}
+                                <img src="{% static 'uploads/product/gallery/66/131/original798d.jpg' %}">
+                            {% endif %}
+                        </div>
+                        <div class="swiper-slide">
+                            {% if product_details.image_2 %}
+                                <img src="{{ product_details.image_2.url }}">
+                            {% else %}
+                                <img src="{% static 'uploads/product/gallery/66/129/original8e41.jpg' %}">
+                            {% endif %}
+                        </div>
+                        <div class="swiper-slide">
+                            {% if product_details.image_3 %}
+                                <img src="{{ product_details.image_3.url }}">
+                            {% else %}
+                                <img src="{% static 'uploads/product/gallery/66/127/originalc5cd.jpg' %}">
+                            {% endif %}
+                        </div>
+                        <!-- <div class="swiper-slide">
+                            <img src="../uploads/product/gallery/66/130/original8e41.jpg?_=1532348426">
+                        </div> -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="infoBlock">
+                <div class="tabs">
+                    <div class="main active">
+                        <div>
+                            <h1 class="title">
+                                <div>
+                                    {{ product_details.name }} </div>
+                            </h1>
+                            <div class="categories">
+                                <a href="{% url 'product:product_category_details' category_slug=product_details.category.slug %}">
+                                    {{ product_details.category.name }} </a>
+                            </div>
+                            <div class="about">
+                                {{ product_details.content_1|safe }}<br>
+                                <p><span></span>
+                                </p>
+                                <div class="mobileNav">
+                                    <a href="#" data-selector=".howToEdit">
+                                        How to edit
+                                    </a>
+                                    <span class="separator"></span>
+                                    <a href="#" data-selector=".policy">
+                                        Policy
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ratingWrapper">
+                                <div>
+                                    <div class="label">
+                                        Please rate:
+                                    </div>
+                                    <div class="rating">
+                                        <a href="../product/rate/66c491.html?value=5"></a>
+                                        <a href="../product/rate/668e1e.html?value=4"></a>
+                                        <a href="../product/rate/661cd7.html?value=3"></a>
+                                        <a href="../product/rate/665f6b.html?value=2"></a>
+                                        <a href="../product/rate/665063.html?value=1"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="buyWrapper">
+                                <div class="priceWrapper">
+                                    <div>
+                                        <div class="currency">
+                                            USD
+                                        </div>
+                                        <div class="price">
+                                            ${{ product_details.product_price }} </div>
+                                    </div>
+                                </div>
+                                <div class="actionBtns">
+                                    <a class="toCartBtn" href="../cart/index.html" data-formatting="150.00"
+                                        data-img="/uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png"
+                                        data-title="ARCH 1" data-price="$35.00" data-formatting-html="$150.00">
+                                        <div>Add to cart</div>
+                                    </a>
+                                    <a href="../product/wish/66.html" class="toWishlist toFavorite ">
+                                        <img src="{% static 'assets/d44acf32/img/Favorite.svg' %}" class="svg ">
+                                    </a>
+
+                                    <a href="../product/unwish/66.html" class="fromWishlist toFavorite hidden">
+                                        <img src="{% static 'assets/d44acf32/img/like_cross.svg' %}" class="svg ">
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="howToEdit">
+                        <div>
+                            {{ product_details.content_2|safe }}<br>
+                        </div>
+                    </div>
+                    <div class="policy">
+                        <div>
+                            {{ product_details.content_3|safe }}<br>
+                            <p><span style="font-size: 12px;"><span style="font-family: Arial;"><span
+                                            style="font-size: 11px;"></span></span></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <div class="hint">
+                        <div>
+                            Use navigation to see more info
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#" class="active">
+                            Main
+                        </a>
+                        <a href="#">
+                            How to edit
+                        </a>
+                        <a href="#">
+                            Policy
+                        </a>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

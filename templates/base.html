@@ -43,38 +43,47 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165746097-1"></script>
 
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+
+
+
+        let device = getCookie('device')
+
+        if (device == null || device == undefined) {
+            device = uuidv4()
+        }
+
+        document.cookie = 'device=' + device + ";domain=;path=/"
+    </script>
+
     {% block css %}
 
     {% endblock %}
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-165746097-1');
-    </script>
-
-    <!-- Hotjar Tracking Code for https://icvtemplates.com/ -->
-
-    <script>
-
-        (function (h, o, t, j, a, r) {
-
-            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
-
-            h._hjSettings = { hjid: 1799918, hjsv: 6 };
-
-            a = o.getElementsByTagName('head')[0];
-
-            r = o.createElement('script'); r.async = 1;
-
-            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-
-            a.appendChild(r);
-
-        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-
-    </script>
 </head>
 
 <body class="beforePreload ">
@@ -198,11 +207,11 @@
     {% block footer %}
     <footer>
         <div class="copyright">
-            <span>ICV Templates</span> © 2023. All rights reserved.
+            <span>BROWNFOLD</span> © 2023. All rights reserved.
         </div>
         <div class="snWrapper">
             <a href="#" class="snTrigger">
-                <img src="assets/d44acf32/img/share.svg" class="svg">
+                <img src="{% static 'assets/d44acf32/img/share.svg' %}" class="svg">
             </a>
             <div class="snLinks">
                 <div class="mobileSection">
@@ -211,24 +220,24 @@
                     </div>
 
                     <a target="_blank" href="https://www.instagram.com/icv_templates/">
-                        <img src="assets/d44acf32/img/insta.svg" class="svg" height="16">
+                        <img src="{% static 'assets/d44acf32/img/insta.svg' %}" class="svg" height="16">
                     </a>
                     <a target="_blank" href="https://www.facebook.com/icv.templates.5">
-                        <img src="assets/d44acf32/img/Facebook.svg" class="svg" height="16">
+                        <img src="{% static 'assets/d44acf32/img/Facebook.svg' %}" class="svg" height="16">
                     </a>
                     <a target="_blank" href="https://twitter.com/IcvTemplates">
-                        <img src="assets/d44acf32/img/Shape.svg" class="svg" height="13">
+                        <img src="{% static 'assets/d44acf32/img/Shape.svg' %}" class="svg" height="13">
                     </a>
                 </div>
                 <a target="_blank"
                     href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://icvtemplates.com/templates">
-                    <img src="assets/d44acf32/img/LinkedIn.svg" class="svg" height="15">
+                    <img src="{% static 'assets/d44acf32/img/LinkedIn.svg' %}" class="svg" height="15">
                 </a>
                 <a target="_blank" href="http://www.twitter.com/share?url=https://icvtemplates.com/templates">
-                    <img src="assets/d44acf32/img/Shape.svg" class="svg" height="13">
+                    <img src="{% static 'assets/d44acf32/img/Shape.svg' %}" class="svg" height="13">
                 </a>
                 <a target="_blank" href="http://www.facebook.com/sharer.php?u=https://icvtemplates.com/templates">
-                    <img src="assets/d44acf32/img/Facebook.svg" class="svg" height="16">
+                    <img src="{% static 'assets/d44acf32/img/Facebook.svg' %}" class="svg" height="16">
                 </a>
             </div>
         </div>

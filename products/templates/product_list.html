@@ -54,23 +54,21 @@
                             or choose your profession below:
                         </div>
                     </div>
-                    <form id="filter-form" action="https://icvtemplates.com/templates" method="get">
+                    <form id="filter-form" action="{% url 'product:search_product_category_wise' %}" method="get">
                         <div class="mainSelectWrapper">
                             <!--                    <div class="selectHolder">-->
-                            <select id="c" class="categorySelect" name="c">
+                            <select id="c" class="categorySelect" name="q">
 
-                                <option value="">All (62)</option>
+                                <option value="all">All (62)</option>
                                 {% for item in category_list %}
-                                <option value="{{ item.id }}">{{ item.name }} ({{ item.products.count }})</option>
+                                <option value="{{ item.slug }}">{{ item.name }} ({{ item.products.count }})</option>
                                 {% endfor %}
                             </select> <!--                    </div>-->
 
                             <div class="autocompleteWrapper"></div>
                         </div>
                         <div class="btnWrapper">
-                            <a href="#" class="scrollTrigger">
-                                Let's scroll
-                            </a>
+                            <button type="submit" class="scrollTrigger">Let's scroll</button>
                         </div>
 
 
@@ -91,7 +89,7 @@
 
                                 <div class="imgWrapper">
                                     <div class="imgBlock">
-                                        <a href="templates/Arch1.html" class="toProfile">
+                                        <a href="{% url 'product:product_detail' product_slug=obj.slug %}" class="toProfile">
                                             {% if obj.image_1 %}
                                                 <img src="{{ obj.image_1.url }}"
                                                     alt="Tempalte 1"> 
