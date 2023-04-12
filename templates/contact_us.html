@@ -1,0 +1,127 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} Contact US {% endblock %}
+
+{% block content %}
+<div class="mainWrapper">
+    <section class="contact fullHeight">
+        <div class="wrapper">
+            <div class="infoBlock">
+                <div class="inner">
+                    <h1 class="title">
+                        <div>
+                            Contact us
+                        </div>
+                    </h1>
+                    <div>
+                        <div class="row">
+                            <div>
+                                <div class="label">
+                                    Company:
+                                </div>
+                                <div class="text">
+                                    BROWNFOLD Inc.<br>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div>
+                                <div class="label">
+                                    Email:
+                                </div>
+                                <div class="text">
+                                    <a href="mailto:support@icvtemplates.com">
+                                        support@brownfold.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div>
+                                <div class="label">
+                                    Social networks:
+                                </div>
+                                <div class="text snWrapper">
+                                    <a target="_blank" href="https://www.instagram.com/icv_templates/">
+                                        <img src="{% static 'assets/d44acf32/img/insta.svg' %}">
+                                    </a>
+                                    <a target="_blank" href="https://www.facebook.com/icv.templates.5">
+                                        <img src="{% static 'assets/d44acf32/img/Facebook.svg' %}">
+                                    </a>
+                                    <a target="_blank" href="https://www.linkedin.com/in/icv-templates-aa62a4167/">
+                                        <img src="{% static 'assets/d44acf32/img/LinkedIn.svg' %}">
+                                    </a>
+                                    <a target="_blank" href="https://twitter.com/IcvTemplates">
+                                        <img src="{% static 'assets/d44acf32/img/Shape.svg' %}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a href="http://zipl.pro/" target="_blank" class="byZIPL">
+                        <div>
+                            <span>Created by</span>
+                            <img src="assets/d44acf32/img/zipl.svg" class="svg">
+                        </div>
+                    </a> -->
+
+                </div>
+            </div>
+            <div class="formBlock">
+                <div class="inner">
+
+
+                    <div id="w0">
+                        <div class="label">
+                            <div>
+                                Write To us
+                            </div>
+                        </div>
+                        <div class="formWrapper">
+
+                            <form id="w1" method="POST"
+                                data-pjax>
+                                {% csrf_token %}
+
+                                <div class="form-group field-feedbackform-name required">
+                                    <label class="control-label" for="feedbackform-name">Name *</label>
+                                    {{ form.name }}
+						            {{ form.name.errors }}
+
+                                    <p class="help-block help-block-error"></p>
+                                </div>
+                                <div class="form-group field-feedbackform-email required">
+                                    <label class="control-label" for="feedbackform-email">Email *</label>
+                                    {{ form.email }}
+						            {{ form.email.errors }}
+
+                                    <p class="help-block help-block-error"></p>
+                                </div>
+                                <div class="form-group field-feedbackform-message required">
+                                    <label class="control-label" for="feedbackform-message">Note *</label>
+                                    {{ form.message }}
+
+                                    <p class="help-block help-block-error"></p>
+                                </div>
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                                <button type="submit" class="btn">Send</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

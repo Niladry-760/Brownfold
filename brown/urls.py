@@ -26,6 +26,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', views.index, name='index'),
+    path('contact-us', views.contact_us_view, name='contact_us'),
+
+    path('privacy-policy', views.privacy_policy, name='privacy_policy'),
+
+    path('terms-and-conditions', views.terms_conditions, name='terms_conditions'),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 

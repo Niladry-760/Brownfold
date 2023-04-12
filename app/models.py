@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -50,3 +51,15 @@ class StateMaster(models.Model):
 
     def __str__(self):
         return self.state_name
+    
+
+class QueryFromContact(models.Model):
+    """
+    User Query From Contact Us Page
+    """
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=100)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
