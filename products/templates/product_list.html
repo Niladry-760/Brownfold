@@ -10,7 +10,7 @@
             <div class="rotateWrapper">
                 <div class="name">
                     <div>
-                        All <span class="count">(62 )</span>
+                        All <span class="count">({{ all_product_count }} )</span>
                     </div>
                 </div>
                 <a href="#" class="changeBtn">
@@ -57,9 +57,9 @@
                     <form id="filter-form" action="{% url 'product:search_product_category_wise' %}" method="get">
                         <div class="mainSelectWrapper">
                             <!--                    <div class="selectHolder">-->
-                            <select id="c" class="categorySelect" name="q">
+                            <select name="q">
 
-                                <option value="all">All (62)</option>
+                                <option value="all">All ({{ all_product_count }})</option>
                                 {% for item in category_list %}
                                 <option value="{{ item.slug }}">{{ item.name }} ({{ item.products.count }})</option>
                                 {% endfor %}
