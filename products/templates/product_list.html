@@ -99,6 +99,7 @@
                                             {% endif %}
                                         </a>
                                         <a class="cart_btn" href="{% url 'ecommerce_cart:add_to_cart' product_id=obj.id %}" data-formatting="{{ obj.product_price }}"
+                                            onclick="update_link()"
                                             {% if obj.image_1 %} 
                                                 data-img="{{ obj.image_1.url }}"
                                             {% else %}
@@ -164,9 +165,9 @@
     {% block js %}
 
     <script type="text/javascript">
-        function update_link(mHref)
+        function update_link()
         {
-          document.getElementById("cart_link").href=mHref; 
+            document.body.classList.add("showCart"); 
         }
       </script>
 

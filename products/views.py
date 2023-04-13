@@ -25,9 +25,14 @@ def all_product_list(request):
 
 	category_list = ProductCategory.objects.all().order_by('-id')
 
+	all_product_count = Product.objects.all().count()
+
+	print(category_list)
+
 	context = {
 		'product_list' : product_list,
 		'category_list' : category_list,
+		'all_product_count' : all_product_count
 	}
 	return CommonMixin.render(request, 'product_list.html', context)
 
