@@ -133,7 +133,7 @@
                 </div>
                 <div class="btnWrapper">
                     <div>
-                        <a href="checkout/index" class="buyBtn">
+                        <a href="{% url 'ecommerce_cart:check_out_address' %}" class="buyBtn">
                             Buy
                         </a>
                     </div>
@@ -259,10 +259,10 @@
         <div class="imageBlock">
           <div class="inner">
             <div class="imgWrapper active">
-              <img src="{% static 'assets/images/Image.svg' %}" class="img-fluid" />
+              <img src="{% static 'assets/images/Image-(1).svg' %}" class="img-fluid" />
             </div>
             <div class="imgWrapper">
-              <img src="{% static 'assets/images/Image-(1).svg' %}" class="img-fluid" />
+              <img src="{% static 'assets/images/Image.svg' %}" class="img-fluid" />
             </div>
             <div class="imgWrapper">
               <img src=" {% static 'assets/images/Image-(1).svg' %}" class="img-fluid" />
