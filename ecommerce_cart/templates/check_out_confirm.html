@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Checkout Confirm {% endblock %}
+
+{% block content %}
+<div class="checkoutWrapper">
+    <div class="wrapper">
+
+        <!-- <a href="/" class="closeCheckout">
+            Close checkout page
+            <img src="/assets/d44acf32/img/cross.svg" class="svg">
+        </a> -->
+
+        <h1 class="title">
+            Checkout
+        </h1>
+
+        <nav>
+            <a href="{% url 'ecommerce_cart:check_out_address' %}" class="disabled">
+                Basic info
+            </a>
+
+            <a href="#" class="active">
+                Confirmation
+            </a>
+        </nav>
+
+    </div>
+
+
+    <div class="wrapper confirmation">
+        <div class="cartInfo">
+            <div class="bigLabel">Your purchases:</div>
+            <div class="items">
+                {% for item in cart_items %}
+                <div class="item">
+                    <div class="aboutProduct">
+                        <div class="index">{{ forloop.counter }}</div>
+                        <div class="imgWrapper">
+                            {% if item.product.image_1 %}
+                                <img src="{{ item.product.image_1.url }}">
+                            {% else %}
+                                <img src="{% static 'uploads/product/79/005df54fba1b3826e4f1b7dc52ef6bce.png' %}">
+                            {% endif %}
+                        </div>
+                        <div class="info">
+                            {{ item.product.name }} </div>
+                    </div>
+                    <div class="price">${{ item.cart_total }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="total">
+                <div class="label">Total price:</div>
+                <div class="value">${{ cart_total }}</div>
+            </div>
+        </div>
+        <div class="userInfo">
+            <div class="bigLabel">Your information:</div>
+            <div class="info-row">
+                <div class="label">First Name</div>
+                <div class="value">{{ applied_address.address.first_name }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Last Name</div>
+                <div class="value">{{ applied_address.address.last_name }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Email</div>
+                <div class="value">{{ applied_address.address.email }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Phone</div>
+                <div class="value">{{ applied_address.address.phone_no }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">State</div>
+                <div class="value">{{ applied_address.address.state }}</div>
+            </div>
+            <div class="info-row">
+                <div class="label">Country</div>
+                <div class="value">{{ applied_address.address.country }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="submitWrapper">
+        <button type="button" class="btn" name="confirm">Confirm</button>    
+    </div>
+
+</div>
+{% endblock %}

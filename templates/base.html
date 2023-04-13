@@ -119,14 +119,14 @@
                             <div class="price">
                                 ${{ item.product.product_price }} <span class="formattingPriceWrapper"></span>
                             </div>
-                            <a href="cart/index.html" class="removeBtn removeFromCart">
+                            <a href="{% url 'ecommerce_cart:remove-from-cart' item_id=item.id %}" class="removeBtn">
                                 <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
                             </a>
                         </div>
                         <div class="imgWrapper">
                             <a href="{% url 'product:product_detail' product_slug=item.product.slug %}">
-                                {% if obj.product.image_1 %}
-                                    <img src="{{ obj.product.image_1.url }}">
+                                {% if item.product.image_1 %}
+                                    <img src="{{ item.product.image_1.url }}">
                                 {% else %}
                                     <img src="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}">
                                 {% endif %}
@@ -144,7 +144,7 @@
                 </div>
                 <div class="btnWrapper">
                     <div>
-                        <a href="checkout/index" class="buyBtn">
+                        <a href="{% url 'ecommerce_cart:check_out_address' %}" class="buyBtn">
                             Buy
                         </a>
                     </div>
@@ -347,10 +347,13 @@
             </div>
         </div>
     </div>
-
-    <div class="notify">
-        <div></div>
-    </div>
+    {% if messages %} 
+        {% for message in messages %}
+            <div class="notify show">
+                <div>{{ message }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="addFormattingPopup">
         <div class="outer">

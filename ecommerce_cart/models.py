@@ -85,13 +85,11 @@ class Address(models.Model):
 		'user_profile.Customer', on_delete=models.CASCADE, related_name='user_shipping_address', blank=True, null=True)
 	first_name = models.CharField(max_length=200, null=True)
 	last_name = models.CharField(max_length=200, null=True)
-	address_line_1 = models.CharField(max_length=255)
+	address_line_1 = models.CharField(max_length=255, blank=True, null=True)
 	address_line_2 = models.CharField(max_length=255, blank=True, null=True)
 	city = models.CharField(max_length=200, null=True)
-	state = models.ForeignKey(
-		'app.StateMaster', on_delete=models.CASCADE, related_name='user_shipping_state', default=37)
-	country = models.ForeignKey(
-		'app.CountryMaster', on_delete=models.CASCADE, related_name='user_shipping_country', default=12)
+	state = models.CharField(max_length=200, blank=True, null=True)
+	country = models.CharField(max_length=200, blank=True, null=True)
 	postcode = models.CharField(_("Post/Zip-code"), max_length=64)
 	phone_regex = RegexValidator(
 	    regex=r'^\+?1?\d{6,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -99,6 +97,7 @@ class Address(models.Model):
 	phone_no = models.CharField(
 	    validators=[phone_regex], max_length=17)
 	email = models.EmailField(max_length=200, null=True)
+	notes = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return '{0} - {1}'.format(self.customer, self.address_line_1)

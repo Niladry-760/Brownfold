@@ -98,7 +98,7 @@
             <input type="hidden" name="_csrf" value="TjMtV0hCdDQeXVkZCS5NdStxfwEwOhlsOwV8GicIMX8/eFthezcmQA==">
             <div class="countWrapper">
                 <div>
-                    Your Cart: {{ cart_count }} items </div>
+                    Your Cart: {{ cart_count|floatformat:0 }} item{{ cart_count|pluralize }} </div>
             </div>
             <div class="itemsWrapper">
                 <div>
@@ -108,14 +108,14 @@
                             <div class="price">
                                 ${{ item.product.product_price }} <span class="formattingPriceWrapper"></span>
                             </div>
-                            <a href="cart/index.html" class="removeBtn removeFromCart">
+                            <a href="{% url 'ecommerce_cart:remove-from-cart' item_id=item.id %}" class="removeBtn removeFromCart">
                                 <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
                             </a>
                         </div>
                         <div class="imgWrapper">
-                            <a href="{% url 'product:product_detail' product_slug=obj.product.slug %}">
-                                {% if obj.product.image_1 %}
-                                    <img src="{{ obj.product.image_1.url }}">
+                            <a href="{% url 'product:product_detail' product_slug=item.product.slug %}">
+                                {% if item.product.image_1 %}
+                                    <img src="{{ item.product.image_1.url }}">
                                 {% else %}
                                     <img src="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}">
                                 {% endif %}

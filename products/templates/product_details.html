@@ -164,7 +164,7 @@
                                         data-title="{{ product_details.name }}" data-price="${{ product_details.product_price }}" data-formatting-html="${{ product_details.product_price }}">
                                         <div>Add to cart</div>
                                     </a>
-                                    {% if customer in product_details.whislist_items.all %}
+                                    {% if not customer in product_details.whislist_items.all %}
                                     <a href="{% url 'ecommerce_cart:add_to_whislist' product_id=product_details.id %}" class="toWishlist toFavorite ">
                                         <img src="{% static 'assets/d44acf32/img/Favorite.svg' %}" class="svg ">
                                     </a>

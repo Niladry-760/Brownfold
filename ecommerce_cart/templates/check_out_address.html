@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+<div class="checkoutWrapper">
+    <div class="wrapper">
+
+        <!-- <a href="/" class="closeCheckout">
+            Close checkout page
+            <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
+        </a> -->
+
+        <h1 class="title">
+            Checkout
+        </h1>
+
+        <nav>
+            <a href="/checkout/index" class="active">
+                Basic info
+            </a>
+
+            <a href="/checkout/confirm" class="disabled">
+                Confirmation
+            </a>
+        </nav>
+
+    </div>
+
+
+
+    <form id="w0" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="formWrapper">
+
+            <div class="form-group field-checkoutform-user_first_name required">
+                <label class="control-label" for="checkoutform-user_first_name">First name*</label>
+                {{ form.first_name }}
+				{{ form.first_name.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <div class="form-group field-checkoutform-user_last_name required">
+                <label class="control-label" for="checkoutform-user_last_name">Last name*</label>
+                {{ form.last_name }}
+				{{ form.last_name.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <div class="form-group field-checkoutform-user_email required">
+                <label class="control-label" for="checkoutform-user_email">Email*</label>
+                {{ form.email }}
+				{{ form.email.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <div class="form-group field-checkoutform-user_phone_number">
+                <label class="control-label" for="checkoutform-user_phone_number">Phone</label>
+                {{ form.phone_no }}
+				{{ form.phone_no.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <div class="form-group fieldWithHint cvName field-checkoutform-name_on_cv required">
+                <label class="control-label" for="checkoutform-name_on_cv">State*</label>
+                {{ form.state }}
+				{{ form.state.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <div class="form-group field-checkoutform-country">
+                <label class="control-label" for="checkoutform-country">Country</label>
+                {{ form.country }}
+				{{ form.country.errors }}
+
+                <div class="help-block"></div>
+            </div>
+
+            <div class="form-group full field-checkoutform-notes">
+                <label class="control-label" for="checkoutform-notes">Note</label>
+                {{ form.notes }}
+				{{ form.notes.errors }}
+
+                <div class="help-block"></div>
+            </div>
+            <!-- <div class="form-group full payment-method-list hidden field-checkoutform-payment_key">
+                <label class="control-label" for="checkoutform-payment_key">Choose a payment method:</label>
+                <input type="hidden" name="CheckoutForm[payment_key]" value="">
+                <div id="checkoutform-payment_key"><label><input type="radio" name="CheckoutForm[payment_key]"
+                            value="1"> %paypal_payment_img%</label>
+                    <label><input type="radio" name="CheckoutForm[payment_key]" value="0" checked>
+                        %card_payment_img%</label>
+                </div>
+
+                <div class="help-block"></div>
+            </div> -->
+        </div>
+        <div class="submitWrapper">
+            <button type="submit" class="btn">Continue</button>
+        </div>
+    </form>
+    <!-- <div class="hintWrapper cvName hidden">
+        <div class="trigger">
+            <img src="/assets/d44acf32/img/hint.svg" class="svg">
+        </div>
+        <div class="text">
+            <div>
+                Please enter the correct name that shall appear on the CV, as it won’t be editable afterwards
+            </div>
+        </div>
+    </div>
+    <div class="hintWrapper wordVersion hidden">
+        <div class="trigger">
+            <img src="/assets/d44acf32/img/hint.svg" class="svg">
+        </div>
+        <div class="text">
+            <div>
+                Choose your Word edition. For Word 2007 & 2010 the edition will appear while word is opening. For 2013
+                -2019 editions, Open word, Goto - File & then Account and you will find edition under product
+                information.
+            </div>
+        </div>
+    </div> -->
+
+
+</div>
+{% endblock %}
