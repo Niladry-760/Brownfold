@@ -1611,6 +1611,36 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   -moz-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .cart_btn {
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 10px;
+  text-align: center;
+  padding: 15px;
+  background: #181818;
+  text-decoration: none;
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  transform: translateY(100%);
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -ms-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .toCartBtn {
   color: #FFFFFF;
   font-family: 'Poppins', sans-serif;
@@ -1651,6 +1681,15 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   -moz-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .no_whislist {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .toWishlist.hidden,
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .fromWishlist.hidden {
   display: none;
@@ -1659,8 +1698,14 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .fromWishlist .svg {
   height: 30px;
 }
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .no_whislist .svg {
+  height: 30px;
+}
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .toWishlist .svg *,
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .fromWishlist .svg * {
+  fill: #FFFFFF;
+}
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper .no_whislist .svg * {
   fill: #FFFFFF;
 }
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper:hover .toProfile:before,
@@ -1674,8 +1719,19 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   -o-transform: translateX(0);
   transform: translateX(0);
 }
+
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper:hover .cart_btn {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper:hover .toWishlist,
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper:hover .fromWishlist {
+  opacity: 1;
+}
+.mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .imgWrapper:hover .no_whislist {
   opacity: 1;
 }
 .mainWrapper section.templatesList .wrapper .templatesListWrapper .templateItem .categories {
@@ -2193,7 +2249,27 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   text-align: center;
   margin-right: 30px;
 }
+.mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .cart_btn {
+  width: 160px;
+  text-align: center;
+  margin-right: 30px;
+}
 .mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .toCartBtn div {
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  background: #181818;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 20px;
+  padding: 15px 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .cart_btn div {
   color: #FFFFFF;
   font-family: 'Poppins', sans-serif;
   background: #181818;
@@ -2212,6 +2288,16 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   opacity: 0.3;
 }
 .mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .toCartBtn:active div {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .cart_btn:hover div {
+  opacity: 0.3;
+}
+.mainWrapper section.templateDetail .infoBlock .main .buyWrapper .actionBtns .cart_btn:active div {
   -webkit-transform: scale(0.9);
   -moz-transform: scale(0.9);
   -ms-transform: scale(0.9);
@@ -4770,6 +4856,10 @@ section.error .inner .btn:hover {
   background-color: #F3F3F3;
 }
 .addFormattingPopup .actionsWrapper .toCartBtn {
+  color: #fff;
+  background-color: #181818;
+}
+.addFormattingPopup .actionsWrapper .cart_btn {
   color: #fff;
   background-color: #181818;
 }

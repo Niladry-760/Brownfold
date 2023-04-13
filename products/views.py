@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import *
-
+from app.common import *
 # Create your views here.
 
 
@@ -29,7 +29,7 @@ def all_product_list(request):
 		'product_list' : product_list,
 		'category_list' : category_list,
 	}
-	return render(request, 'product_list.html', context)
+	return CommonMixin.render(request, 'product_list.html', context)
 
 
 def product_category_details_view(request, category_slug):
@@ -58,7 +58,7 @@ def product_category_details_view(request, category_slug):
 		'product_list' : product_list,
 		'category_list' : category_list
 	}
-	return render(request, 'product_category_details.html', context)
+	return CommonMixin.render(request, 'product_category_details.html', context)
 
 
 def search_product_category_wise(request):
@@ -95,7 +95,7 @@ def search_product_category_wise(request):
 		'product_list' : product_list,
 		'category_list' : category_list
 	}
-	return render(request, 'product_category_details.html', context)
+	return CommonMixin.render(request, 'product_category_details.html', context)
 
 
 def product_details_view(request, product_slug):
@@ -107,4 +107,4 @@ def product_details_view(request, product_slug):
 	context = {
 		'product_details' : product_details
 	}
-	return render(request, 'product_details.html', context)
+	return CommonMixin.render(request, 'product_details.html', context)

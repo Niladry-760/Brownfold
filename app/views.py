@@ -4,11 +4,12 @@ from django.contrib import messages
 
 from .forms import QueryFromContactForm
 from .models import QueryFromContact
+from .common import *
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'index.html')
+    return CommonMixin.render(request, 'index.html')
 
 
 def contact_us_view(request):   
@@ -33,18 +34,18 @@ def contact_us_view(request):
     context = {
         'form' : query_form,
     }
-    return render(request, "contact_us.html", context)
+    return CommonMixin.render(request, "contact_us.html", context)
 
 
 def privacy_policy(request):
     """
     Privacy Policy Page
     """
-    return render(request, 'privacy_policy.html')
+    return CommonMixin.render(request, 'privacy_policy.html')
 
 
 def terms_conditions(request):
     """
     Terms and Condition Page
     """
-    return render(request, 'terms_conditions.html')
+    return CommonMixin.render(request, 'terms_conditions.html')

@@ -100,17 +100,22 @@
                                                     alt="Tempalte 1"> 
                                             {% endif %}
                                         </a>
-                                        <a class="toCartBtn" href="cart/index.html" data-formatting="150.00"
+                                        <a class="cart_btn" href="{% url 'ecommerce_cart:add_to_cart' product_id=obj.id %}" data-formatting="{{ obj.product_price }}"
                                             {% if obj.image_1 %} 
                                                 data-img="{{ obj.image_1.url }}"
                                             {% else %}
                                                 data-img="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}"
                                             {% endif %}
-                                            data-title="ARCH 1" data-price="$35.00" data-formatting-html="$150.00">Add
-                                            to cart</a> <a class="toWishlist" href="product/wish/66.html"><img
-                                                src="assets/d44acf32/img/Favorite.svg" class="svg "></a> <a
-                                            class="fromWishlist hidden" href="product/unwish/66.html"><img
+                                            data-title="{{ obj.name }}" data-price="${{ obj.product_price }}" data-formatting-html="${{ obj.product_price }}">Add
+                                            to cart</a> 
+                                            
+                                            {% if customer in obj.whislist_items.all %}
+                                                <a class="toWishlist" href="{% url 'ecommerce_cart:add_to_whislist' product_id=obj.id %}"><img
+                                                    src="{% static 'assets/d44acf32/img/Favorite.svg' %}" class="svg "></a> 
+                                            {% else %}
+                                                <a class="no_whislist" href="product/unwish/66.html"><img
                                                 src="{% static 'assets/d44acf32/img/like_cross.svg' %}" class="svg "></a>
+                                            {% endif %}
                                     </div>
                                 </div>
                                 <div class="allInfoWrapper">

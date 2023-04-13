@@ -36,4 +36,6 @@ urlpatterns = [
 
     url(r"^our-products/", include("products.urls", namespace="product")),
 
+    url(r"^ecommerce/", include("ecommerce_cart.urls", namespace="ecommerce_cart")),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

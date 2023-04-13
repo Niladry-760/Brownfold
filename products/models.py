@@ -42,6 +42,9 @@ class Product(models.Model):
     product_price = models.DecimalField(default=0.00, max_digits=20, decimal_places=2)
     slug = models.SlugField(
         max_length=200, unique=True, null=True, blank=True)
+    
+    whislist_items = models.ManyToManyField(
+		  'user_profile.Customer', related_name='whislist_items', blank=True)
 
     def __str__(self) -> str:
         return self.name

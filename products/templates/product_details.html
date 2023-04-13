@@ -159,19 +159,20 @@
                                     </div>
                                 </div>
                                 <div class="actionBtns">
-                                    <a class="toCartBtn" href="../cart/index.html" data-formatting="150.00"
+                                    <a class="cart_btn" href="{% url 'ecommerce_cart:add_to_cart' product_id=product_details.id %}" data-formatting="150.00"
                                         data-img="/uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png"
-                                        data-title="ARCH 1" data-price="$35.00" data-formatting-html="$150.00">
+                                        data-title="{{ product_details.name }}" data-price="${{ product_details.product_price }}" data-formatting-html="${{ product_details.product_price }}">
                                         <div>Add to cart</div>
                                     </a>
-                                    <a href="../product/wish/66.html" class="toWishlist toFavorite ">
+                                    {% if customer in product_details.whislist_items.all %}
+                                    <a href="{% url 'ecommerce_cart:add_to_whislist' product_id=product_details.id %}" class="toWishlist toFavorite ">
                                         <img src="{% static 'assets/d44acf32/img/Favorite.svg' %}" class="svg ">
                                     </a>
-
-                                    <a href="../product/unwish/66.html" class="fromWishlist toFavorite hidden">
+                                    {% else %}
+                                    <a href="#" class="fromWishlist toFavorite">
                                         <img src="{% static 'assets/d44acf32/img/like_cross.svg' %}" class="svg ">
                                     </a>
-
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
