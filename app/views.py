@@ -9,7 +9,8 @@ from .common import *
 
 
 def index(request):
-    return CommonMixin.render(request, 'index.html')
+    context = {}
+    return CommonMixin.render(request, 'index.html', context)
 
 
 def contact_us_view(request):   
@@ -41,11 +42,13 @@ def privacy_policy(request):
     """
     Privacy Policy Page
     """
-    return CommonMixin.render(request, 'privacy_policy.html')
+    context = {}
+    return CommonMixin.render(request, 'privacy_policy.html', context)
 
 
 def terms_conditions(request):
     """
     Terms and Condition Page
     """
-    return CommonMixin.render(request, 'terms_conditions.html')
+    context = {}
+    return CommonMixin.render(request, 'terms_conditions.html', context)
