@@ -2,14 +2,32 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from .forms import QueryFromContactForm
-from .models import QueryFromContact
+from .forms import QueryFromContactForm, QueryFromCallForm
+from .models import QueryFromContact, QueryFromCall
 from .common import *
 # Create your views here.
 
 
 def index(request):
-    context = {}
+    if request.method == "POST":
+        query_form = QueryFromCallForm(request.POST or None)
+        if query_form.is_valid():
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            project_desc = request.POST.get('project_desc')
+            message = request.POST.get('message')
+            answer = QueryFromCall.objects.create(name=name, email=email,message=message,project_desc=project_desc)
+            answer.save()
+            #send_contact_message_query_mail(contact=answer)
+            messages.success(request, 'Your Call Request is send successfully!')
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    else:
+        query_form = QueryFromCallForm()
+
+
+    context = {
+        'form' : query_form,
+    }
     return CommonMixin.render(request, 'index.html', context)
 
 

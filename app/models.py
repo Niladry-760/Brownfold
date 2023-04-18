@@ -63,3 +63,16 @@ class QueryFromContact(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class QueryFromCall(models.Model):
+    """
+    User Query From Contact Us Page
+    """
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=100)
+    project_desc = models.CharField(max_length=255, blank=True, null=True)
+    message = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

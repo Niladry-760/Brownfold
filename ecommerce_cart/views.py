@@ -101,6 +101,7 @@ def add_to_cart(request, **kwargs):
     except Exception as exception:
         device = None
 
+    extra_charge = request.GET.get('extra_charge', 0)
 
     with transaction.atomic():
 
@@ -110,7 +111,7 @@ def add_to_cart(request, **kwargs):
             created.save()
 
         add_item = CartItems.objects.create(
-            product=product, customer=customer, ref_code=generate_order_id(), cart_total=product.product_price)
+            product=product, customer=customer, ref_code=generate_order_id(), extra_charge=extra_charge)
 
         add_item.save()
 

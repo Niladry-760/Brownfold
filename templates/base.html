@@ -117,7 +117,7 @@
                     <div class="item">
                         <div>
                             <div class="price">
-                                ${{ item.product.product_price }} <span class="formattingPriceWrapper"></span>
+                                ${{ item.product.product_price }} <span class="formattingPriceWrapper">{% if item.extra_charge != 0 %} + ${{ item.extra_charge }} {% endif %}</span>
                             </div>
                             <a href="{% url 'ecommerce_cart:remove-from-cart' item_id=item.id %}" class="removeBtn">
                                 <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
@@ -349,12 +349,14 @@
     </div>
     {% if messages %} 
         {% for message in messages %}
-            <div class="notify show">
+            <div class="notify show" id="show_notify">
                 <div>{{ message }}</div>
             </div>
         {% endfor %}
     {% endif %}
 
+
+    {% block popup %}
     <div class="addFormattingPopup">
         <div class="outer">
             <div class="inner">
@@ -370,7 +372,7 @@
                     </div>
                     <div class="formattingInfo main">
                         <div class="checkboxWrapper">
-                            <input type="checkbox" id="formatting_cb">
+                            <input type="checkbox" id="formatting_cb" onchange="update_final_link()">
                             <label for="formatting_cb">Add formatting services</label>
                         </div>
                         <div class="price">
@@ -401,7 +403,7 @@
                         <a href="#" class="cancelBtn">
                             Cancel
                         </a>
-                        <a href="#" class="toCartBtn formatting" id="cart_link">
+                        <a href="#" id="cart_link" style="color: #fff;background-color: #181818;">
                             Proceed to Buy
                         </a>
                     </div>
@@ -409,6 +411,7 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 
     <section class="error popupIE">
 
@@ -452,6 +455,7 @@
             jQuery('#filter-form').yiiActiveForm([], []);
             $('.list-view').scrollPager({ "wrapper": ".list-view", "pagination": ".pagination", "next": ".pagination .next a:first", "bufferPx": 150, "pjax": { "container": "#w0" }, "item": ".item", "animate": false });
         });</script>
+
 
     {% block js %}
 

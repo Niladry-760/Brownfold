@@ -76,7 +76,7 @@
 
 </head>
 
-<body class="">
+<body class="" onload="get_before_consult()">
   {% if cart_count == 0 %}
     <div class="cartWrapper">
 
@@ -894,15 +894,21 @@
             </div>
           </div>
           <div class="col-12 col-md-3 ps-5 py-5">
-            <div class="row  ">
+            <div class="row  " id="get-consult-form" style="display: none;">
               <div class="col-12 d-flex justify-content-start"><img src="{% static 'assets/images/mail-person.svg' %}"
                   class="img-fluid" alt="" srcset=""></div>
               <div class="col-12 mt-2">
                 <p class="works-2">How it works</p>
+                
               </div>
               <div class="col-12 my-1">
                 <p class="request-text">Submit Your <br>
                   Request</p>
+                  {% if messages %} 
+                  {% for message in messages %}
+                  <span class="badge bg-success">{{ message }}</span>
+                  {% endfor %}
+                {% endif %}
               </div>
               <div class="col-12 my-3 request-content">
                 Our guided request form automatically populates recommended graphic design specs, like file sizes and
@@ -910,13 +916,207 @@
                 each graphic design submission easy and fast.
               </div>
               <div class="col-12 d-flex justify-content-start">
-                <button class="see-2-btn">BOOK A CALL WITH US</button>
+                <button class="see-2-btn" id="get-consult-button" onclick="get_consult()">BOOK A CALL WITH US</button>
               </div>
               <div class="col-12 mb-5">
 
               </div>
 
             </div>
+
+
+
+            <div class="row  " id="consul-form" style="display: unset;">
+              <div class="col-12 d-flex justify-content-start"></div>
+              <div class="col-12 mt-2">
+                <p class="works-2">How it works </p>
+              </div>
+              <div class="col-12 my-1">
+                <p class="request-text">Submit Your <br>
+                  Request</p>
+              </div>
+              <div class="col-12 mt-2">
+                <p class="works-2" style="font-size: 10px;!important;line-height: 146%;">
+                  Fill out the form to schedule a consultation with a Brownfold expert. Are you a designer?
+                   </p>
+                    {% if messages %} 
+                      {% for message in messages %}
+                      <span class="badge bg-success">Your Call Request is send successfully!</span>
+                      {% endfor %}
+                    {% endif %}
+              </div>
+              <div class="col-12 request-content">
+                <form method="POST" id="contactForm" name="contactForm">
+                  {% csrf_token %}
+                        <style>
+                          form .form-group .form-control {
+                              position: relative;
+                              height: 63px;
+                              width: 100%;
+                              background-color: #f3f3f3;
+                              /* border: 1px solid #f3f3f3; */
+                              outline: none;
+                              line-height: 20px;
+                              padding: 14px 20px;
+                              color: #181818;
+                              font-family: "Poppins", sans-serif;
+                              font-size: 12px;
+                              font-weight: 500;
+                              letter-spacing: 2px;
+                              border: none;
+                              background: #fde722;
+                              border-bottom: 1px solid #181818;
+                          }
+                          input {
+                            padding-left: 1rem;
+                          }
+
+                          input#name {
+                            background-image: url(https://cdn-icons-png.flaticon.com/512/1077/1077114.png);
+                            background-size: uns;
+                            background-repeat: no-repeat;
+                            text-indent: 44px;
+                            padding: 5px 0px;
+                            transition: 0.3s;
+                            background-size: 2rem;
+                            background-position: left;
+                        }
+                        input#email {
+                            background-image: url(https://cdn-icons-png.flaticon.com/512/2989/2989993.png);
+                            background-size: uns;
+                            background-repeat: no-repeat;
+                            text-indent: 44px;
+                            padding: 5px 0px;
+                            transition: 0.3s;
+                            background-size: 2rem;
+                            background-position: left;
+                        }
+                        input#subject {
+                            background-image: url(https://static.thenounproject.com/png/2303077-200.png);
+                            background-size: uns;
+                            background-repeat: no-repeat;
+                            text-indent: 44px;
+                            padding: 5px 0px;
+                            transition: 0.3s;
+                            background-size: 2rem;
+                            background-position: left;
+                        }
+                        input#message {
+                            background-image: url(https://cdn-icons-png.flaticon.com/512/685/685887.png);
+                            background-size: uns;
+                            background-repeat: no-repeat;
+                            text-indent: 44px;
+                            padding: 5px 0px;
+                            transition: 0.3s;
+                            background-size: 2rem;
+                            background-position: left;
+                        }
+                        input#attachment {
+                            background-image: url(https://cdn-icons-png.flaticon.com/512/237/237510.png);
+                            background-size: uns;
+                            background-repeat: no-repeat;
+                            text-indent: 44px;
+                            padding: 5px 0px;
+                            transition: 0.3s;
+                            background-size: 2rem;
+                            background-position: left;
+                        }
+                        </style>
+                        <div class="col-md-6 form-group">
+                          {{ form.name }}
+                          {{ form.name.errors }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                          {{ form.email }}
+                          {{ form.email.errors }}
+                        </div>
+                      <div class="col-md-12 form-group">
+                        {{ form.project_desc }}
+						            {{ form.project_desc.errors }}
+                      </div>
+                      <div class="col-md-12 form-group">
+                        {{ form.message }}
+						            {{ form.message.errors }}
+                      </div>
+                      <!-- <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" name="subject" id="attachment"
+                          placeholder="Upload Attachment">
+                  </div> -->
+                    <div class="justify-content-center" style="margin-top: 2rem;">
+                        <div class="col-md-5 form-group text-center">
+                          <div class="col-12 d-flex justify-content-start">
+                            <button class="see-2-btn" type="submit">BOOK NOW!</button>
+                            <button id="get_before_consult_button" class="see-2-btn" type="button" style="border: 1px solid #19181a; background-color: #111111;
+                            margin-left: 6px;" onclick="get_before_consult()">CANCEL!</button>
+                          </div>
+                        </div>
+                    </div>
+                </form>
+              </div>
+              
+              <div class="col-12 mb-5">
+
+              </div>
+
+            </div>
+
+            <!-- <div class="row  ">
+              <div class="col-12 d-flex justify-content-start"></div>
+                  <div class="form h-100 contact-wrap p-5">
+                    
+                    <div class="col-12 my-1">
+                      <p class="request-text">Submit Your <br>
+                        Request</p>
+                    </div>
+                    <div class="col-12 mt-2">
+                      <p class="works-2">How it works</p>
+                    </div>
+                    <span></span>
+                    <form class="mb-5" method="post" id="contactForm" name="contactForm">
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="" class="col-form-label">Name *</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    placeholder="Your name">
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="" class="col-form-label">Email *</label>
+                                <input type="email" class="form-control" name="email" id="email"
+                                    placeholder="Your email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group mb-3">
+                                <label for="budget" class="col-form-label">Subject</label>
+                                <input type="text" class="form-control" name="subject" id="subject"
+                                    placeholder="Your subject">
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-12 form-group mb-3">
+                                <label for="message" class="col-form-label">Message *</label>
+                                  <input type="text" class="form-control" name="subject" id="subject"
+                                    placeholder="Write your message">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 form-group text-center">
+                                <input type="submit" value="Send Message"
+                                    class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                                <span class="submitting"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="form-message-warning mt-4"></div>
+                    <div id="form-message-success">
+                        Your message was sent, thank you!
+                    </div>
+                </div>
+              <div class="col-12 mb-5">
+
+              </div>
+
+            </div> -->
           </div>
           <div class="col-12 col-md-3 ps-5 py-5   ">
             <img src="{% static 'assets/images/dots-.svg' %}" class="img-fluid dots-position positive-absolute" alt="" srcset="">
@@ -1640,6 +1840,19 @@
   <script src="{% static 'assets/js/circle-progress.js' %}"></script>
 
   <script src="https://icvtemplates.com/assets/d44acf32/js/main.js?v=1581956400"></script>
+
+
+  <script>
+    function get_consult() {
+      document.getElementById("get-consult-form").style.display = "none";
+      document.getElementById("consul-form").style.display = "unset";
+    }
+
+    function get_before_consult() {
+      document.getElementById("get-consult-form").style.display = "unset";
+      document.getElementById("consul-form").style.display = "none";
+    }
+  </script>
 
 
 </body>

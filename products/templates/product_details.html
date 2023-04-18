@@ -159,8 +159,12 @@
                                     </div>
                                 </div>
                                 <div class="actionBtns">
-                                    <a class="cart_btn" href="{% url 'ecommerce_cart:add_to_cart' product_id=product_details.id %}" data-formatting="150.00"
-                                        data-img="/uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png"
+                                    <a class="toCartBtn" onclick='update_anchor("{% url 'ecommerce_cart:add_to_cart' product_id=product_details.id %}")' href="{% url 'ecommerce_cart:add_to_cart' product_id=product_details.id %}" data-formatting="150.00"
+                                    {% if product_details.image_1 %} 
+                                        data-img="{{ product_details.image_1.url }}"
+                                    {% else %}
+                                        data-img="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}"
+                                    {% endif %}
                                         data-title="{{ product_details.name }}" data-price="${{ product_details.product_price }}" data-formatting-html="${{ product_details.product_price }}">
                                         <div>Add to cart</div>
                                     </a>
@@ -213,4 +217,46 @@
         </div>
     </section>
 </div>
+{% endblock %}
+
+
+{% block js %}
+
+{% if messages %} 
+    {% for message in messages %}
+        <script>
+            function update_link()
+            {
+                document.getElementById("show_notify").style.display = "none";
+                document.body.classList.add("showCart"); 
+            }
+            window.onload = setTimeout(update_link, 5000)
+        </script>
+    {% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+    
+    function update_anchor(url)
+    {
+        var link = document.getElementById("cart_link");
+        link.setAttribute("href", url);
+    } 
+  </script>
+
+  <script>
+    function update_final_link() {
+        var checkBox = document.getElementById("formatting_cb");
+        var url = document.getElementById("cart_link").href;
+        console.log(url)
+        if (checkBox.checked == true){
+            final_url = url.concat("?extra_charge=25")
+        } else {
+            final_url = url
+        }
+        var link = document.getElementById("cart_link");
+        link.setAttribute("href", final_url);
+    }
+  </script>
+
 {% endblock %}

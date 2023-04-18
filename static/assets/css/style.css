@@ -4785,7 +4785,6 @@ form {
 form .form-group {
   width: 380px;
   max-width: 100%;
-  margin: 0 0 20px;
 }
 
 form .form-group.payment-method-list {
@@ -8023,7 +8022,7 @@ body.showMenu .menu .wrapper .newestTemplateWrapper .exploreBtn div {
   font-family: "Overpass";
   font-style: normal;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 37px;
   line-height: 115%;
   /* or 115% */
   text-align: left;
@@ -8161,6 +8160,15 @@ body.showMenu .menu .wrapper .newestTemplateWrapper .exploreBtn div {
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
+  transition: 0.5s;
+}
+
+section.bg-sixth:hover {
+  background-image: url(../images/bg-sixithsvg.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  animation: progressBar ease-in-out forwards;
 }
 
 .bg-request {

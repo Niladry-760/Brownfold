@@ -5,3 +5,4 @@ from .models import *
 
 
 admin.site.register(QueryFromContact)
+admin.site.register(QueryFromCall)
