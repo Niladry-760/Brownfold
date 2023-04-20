@@ -1,7 +1,32 @@
+import datetime
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 # Create your models here.
+
+
+class PeriodSelected(models.Model):
+    """
+    Period selected by a user
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="auth_user_period", on_delete=models.CASCADE)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.user.username) + " [From " + str(self.start_date) + " To " + str(self.end_date) + "]"
+
+    def clean(self):
+        if self.start_date > self.end_date:
+            raise ValidationError({
+                'start_date': ["Start Date cannot be greater than End Date"],
+                'end_date': ["End Date cannot be earlier than Start Date"]
+            })
 
 class CountryMaster(models.Model):
     """
@@ -76,3 +101,15 @@ class QueryFromCall(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# sender, instance, created, **kwargs
+def create_period_on_user_create(instance, created, **kwargs):
+    """
+    Signal to create a Period whenever a user Registers.
+    """
+    PeriodSelected.objects.update_or_create(user=instance, defaults={
+                                     'start_date': datetime.date((datetime.datetime.now().year), 4, 1), 
+                                     'end_date': datetime.date((datetime.datetime.now().year) + 1, 3, 31)})

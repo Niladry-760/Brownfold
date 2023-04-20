@@ -1,0 +1,279 @@
+{% extends "metronics/base.html" %}
+{% load static %}
+
+{% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+{% load poll_extras %}
+
+{% block title %} Order List {% endblock %}
+
+{% block content %}
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <!--begin::Subheader-->
+  <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+      <!--begin::Info-->
+      <div class="d-flex align-items-center flex-wrap mr-2">
+        <!--begin::Page Title-->
+        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Orders List</h5>
+        <!--end::Page Title-->
+
+        <!--begin::Actions-->
+        <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+        <!-- <span class="text-muted font-weight-bold mr-4">#XRS-45670</span>
+				<a href="#" class="btn btn-light-warning font-weight-bolder btn-sm">Add New</a> -->
+        <!--end::Actions-->
+
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+          <li class="breadcrumb-item">
+            <a href="{% url 'admin_index' %}" class="text-muted">Admin Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#" class="text-muted">Orders List</a>
+          </li>
+        </ul>
+        <!--end::Breadcrumb-->
+
+
+
+      </div>
+      <!--end::Info-->
+      <!--begin::Toolbar-->
+      <div class="d-flex align-items-center">
+        <!--begin::Actions-->
+        <!-- <a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Today</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Month</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Year</a> -->
+        <!--end::Actions-->
+        <!--begin::Daterange-->
+        <!-- <a href="#" class="btn btn-success"><i class="ki ki-plus"></i> Create Orders</a> -->
+        <!--end::Daterange-->
+
+      </div>
+      <!--end::Toolbar-->
+    </div>
+  </div>
+  <!--end::Subheader-->
+
+
+  <div class="row">
+    <div class="col-xl-12 col-md-12">
+      <!--begin::Card-->
+      <div class="card card-custom gutter-b">
+        <!--begin::Header-->
+        <div class="card-header card-header-tabs-line">
+          <div class="card-toolbar">
+            <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-bold nav-tabs-line-3x" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#kt_apps_contacts_view_tab_1">
+                  <span class="nav-icon mr-2">
+                    <span class="svg-icon mr-3">
+                      <!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                        height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <rect x="0" y="0" width="24" height="24" />
+                          <path
+                            d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z"
+                            fill="#000000" />
+                          <circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5" />
+                        </g>
+                      </svg>
+                      <!--end::Svg Icon-->
+                    </span>
+                  </span>
+                  <span class="nav-text">All Orders</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body px-0">
+          <div class="tab-content pt-5">
+            <!--begin::Tab Content-->
+            <div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
+              <div class="container">
+                <!--begin::Table-->
+                {% if order_list %}
+                <div class="table-responsive">
+                  <table class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+                    <thead>
+                      <tr class="text-left text-uppercase">
+                        <th class="pl-7">
+                          <span class="text-dark-75">Order ID</span>
+                        </th>
+                        <th style="min-width: 100px">Date</th>
+                        <th style="min-width: 100px">User</th>
+                        <th style="min-width: 100px">Amount</th>
+                        <th style="min-width: 100px">View</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for orders in order_list %}
+                      <tr>
+                        <td>
+                          {{ orders.order_id }}
+                        </td>
+                        <td>
+                          <span
+                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ orders.date_ordered }}</span>
+                          <!-- <span class="text-muted font-weight-bold">In Proccess</span> -->
+                        </td>
+
+                        <td>
+                          <span
+                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ orders.address.first_name }}
+                            {{ orders.address.last_name }}</span>
+                          <!-- <span class="text-muted font-weight-bold">Paid</span> -->
+                        </td>
+
+
+                        <td>
+                          <span class="text-dark-75 font-weight-bolder d-block font-size-lg">&#8377;
+                            {{ orders.grand_total }}</span>
+                          <!-- <span class="text-muted font-weight-bold">Paid</span> -->
+                        </td>
+
+
+
+                        <td>
+                          <button type="button" class="btn btn-info" data-toggle="modal"
+                            data-target="#myModal5-{{ orders.id }}">View
+                            Order</button>
+                          <!-- <span class="text-muted font-weight-bold">Paid</span> -->
+
+                          <div class="modal inmodal fade" id="myModal5-{{ orders.id }}" tabindex="-1" role="dialog"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"><span
+                                      aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                  <h4 class="modal-title">Order Items</h4>
+
+                                </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <div class="col-md-7">
+                                      <ul class="list-group">
+                                        {% for item in orders.products.all %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <div>
+                                            {% if item.product.image_1 %}
+                                            <img class="product_img" src="{{ item.product.image_1.url }}"
+                                              alt="product picture" height="80" width="100">
+                                            {% else %}
+                                            <img class="product_img"
+                                              src="{% static 'my_store_version3/images/medicine.jpg' %}" height="80"
+                                              width="100">
+                                            {% endif %}
+                                            <span style="margin-right: 15px;">{{ item.product.name }}</span>
+                                          </div>
+                                          <span class="badge badge-primary">Quantity: {{ item.quantity }}</span>
+                                          <br>
+
+                                        </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+
+
+                                    <div class="col-md-5">
+                                      <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <h3>Customer Details</h3>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer Name</strong>
+                                          <span>{{ orders.address.first_name }} {{ orders.address.last_name }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer Address</strong>
+                                          <span>{{ orders.address.address_line_1 }},
+                                            <br>{{ orders.address.address_line_2 }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer State</strong>
+                                          <span>{{ orders.address.state.state_name }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong> Email</strong>
+                                          <span class="text-center">{{ orders.address.email }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer Pin</strong>
+                                          <span>{{ orders.address.postcode }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer Contact</strong>
+                                          <span>{{ orders.address.phone_no }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          <strong>Customer Country</strong>
+                                          <span>{{ orders.address.country.country_name }}</span>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <div class="text-center">
+                                    <a href="{% url 'ecommerce_cart:orders_details_admin' user_order_pk=orders.pk %}"
+                                      class="btn btn-primary btn-lg">View Details</a>
+                                  </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <!--end::Table-->
+                {% else %}
+                <div class="alert alert-danger alert-dismissable" id="limit-alert">
+                  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                  <strong>You Dont Have Any Orders yet!</strong>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <!--end::Tab Content-->
+            <!--begin::Tab Content-->
+
+
+          </div>
+        </div>
+        <!--end::Body-->
+      </div>
+      <!--end::Card-->
+    </div>
+  </div>
+  <!--end::Dashboard-->
+
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'assets/js/pages/crud/ktdatatable/base/html-table.js' %}"></script>
+<!--end::Page Scripts-->
+
+{% endblock %}

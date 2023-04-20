@@ -21,4 +21,13 @@ urlpatterns = [
     url(r'^checkout/$', views.check_out_address, name='check_out_address'),
 
     url(r'^checkout/confirm/$', views.checkout_confirm_page, name='checkout_confirm_page'),
+
+
+    ##### Admin Urls #####
+
+    url(r'^orders_list/admin/$',
+        views.UserOrderListAdminView.as_view(), name='orders_list_admin'),
+
+    url(r'^orders/(?P<user_order_pk>\d+)/admin/$',
+        views.OrderDetailView.as_view(), name='orders_details_admin'),
 ]

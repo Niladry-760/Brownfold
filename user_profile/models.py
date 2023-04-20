@@ -103,6 +103,7 @@ class Customer(models.Model):
 	name = models.CharField(max_length=200, null=True, blank=True)
 	email = models.CharField(max_length=200, null=True, blank=True)
 	device = models.CharField(max_length=200, null=True, blank=True)
+	date = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		if self.name:

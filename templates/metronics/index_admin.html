@@ -1,0 +1,850 @@
+{% extends "metronics/base.html" %}
+{% load static %}
+
+{% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+{% load poll_extras %}
+
+{% block title %} BROWNFOLD Admin Dashboard {% endblock %}
+
+{% block content %}
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::Subheader-->
+	<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+		<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Info-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+				<!--end::Page Title-->
+				<!--begin::Actions-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+				<!-- <span class="text-muted font-weight-bold mr-4">#XRS-45670</span>
+				<a href="#" class="btn btn-light-warning font-weight-bolder btn-sm">Add New</a> -->
+				<!--end::Actions-->
+			</div>
+			<!--end::Info-->
+			<!--begin::Toolbar-->
+			<div class="d-flex align-items-center">
+				<!--begin::Actions-->
+				<!-- <a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Today</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Month</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Year</a> -->
+				<!--end::Actions-->
+				<!--begin::Daterange-->
+				<a href="#" class="btn btn-sm btn-light font-weight-bold mr-2"
+					data-toggle="tooltip" data-placement="left">
+					<span class="text-muted font-size-base font-weight-bold mr-2"
+						id="kt_dashboard_daterangepicker_title">Today</span>
+					<span class="text-primary font-size-base font-weight-bolder"
+						id="kt_dashboard_daterangepicker_date">{% now "jS F Y" %}</span>
+				</a>
+				<!--end::Daterange-->
+
+			</div>
+			<!--end::Toolbar-->
+		</div>
+	</div>
+	<!--end::Subheader-->
+
+
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class="container">
+			<!--begin::Dashboard-->
+			<!--begin::Row-->
+
+			<!--Begin::Row-->
+			<div class="row">
+				<div class="col-xl-3">
+					<!--begin: Stats Widget 19-->
+					<div class="card card-custom bg-light-success card-stretch gutter-b">
+						<!--begin::Body-->
+						<div class="card-body my-3">
+							<a href="#"
+								class="card-title font-weight-bolder text-success text-hover-state-dark font-size-h6 mb-4 d-block">Lifetime
+								Sales</a>
+							<div class="font-weight-bold text-muted font-size-sm">
+								<span
+									class="text-dark-75 font-size-h2 font-weight-bolder mr-2">&#8377;{{ life_time_sales|format_number }}</span>Sales
+							</div>
+							<div class="progress progress-xs mt-7 bg-success-o-60">
+                                {% if life_time_sales != 0 %}
+								<div class="progress-bar bg-success" role="progressbar"
+									style="width: {{ current_month_sales|div:life_time_sales|mul:100 }}%;"
+                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                                {% endif %}
+							</div>
+						</div>
+						<!--end:: Body-->
+					</div>
+					<!--end: Stats:Widget 19-->
+				</div>
+				<div class="col-xl-3">
+					<!--begin::Stats Widget 20-->
+					<div class="card card-custom bg-light-warning card-stretch gutter-b">
+						<!--begin::Body-->
+						<div class="card-body my-4">
+							<a href="#"
+								class="card-title font-weight-bolder text-warning font-size-h6 mb-4 text-hover-state-dark d-block">Customers</a>
+							<div class="font-weight-bold text-muted font-size-sm">
+								<span
+									class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ total_customers }}</span>
+							</div>
+							<div class="progress progress-xs mt-7 bg-warning-o-60">
+                                {% if total_customers != 0 %}
+								<div class="progress-bar bg-warning" role="progressbar"
+									style="width: {{ total_customer_this_month|div:total_customers|mul:100 }}%;"
+                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                                {% endif %}
+							</div>
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Stats Widget 20-->
+				</div>
+				<div class="col-xl-3">
+					<!--begin::Stats Widget 21-->
+					<div class="card card-custom bg-light-info card-stretch gutter-b">
+						<!--begin::ody-->
+						<div class="card-body my-4">
+							<a href="#"
+								class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">Orders</a>
+							<div class="font-weight-bold text-muted font-size-sm">
+								<span
+									class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ life_time_orders }}</span>
+							</div>
+							<div class="progress progress-xs mt-7 bg-info-o-60">
+                                {% if life_time_orders != 0 %}
+								<div class="progress-bar bg-info" role="progressbar"
+									style="width: {{ current_month_orders|div:life_time_orders|mul:100 }}%;"
+                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                                {% endif %}
+							</div>
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Stats Widget 21-->
+				</div>
+
+				<div class="col-xl-3">
+					<!--begin::Stats Widget 21-->
+					<div class="card card-custom bg-info card-stretch gutter-b">
+						<!--begin::ody-->
+						<div class="card-body my-4">
+							<a href="#"
+								class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Average
+								Orders</a>
+							<div class="font-weight-bold text-muted font-size-sm">
+								<span
+									class="text-white-75 font-weight-bolder font-size-h2 mr-2">&#8377;{{ average_life_time_orders|format_number }}</span>
+							</div>
+							<div class="progress progress-xs mt-7 bg-white-o-60">
+                                {% if average_life_time_orders != 0 %}
+								<div class="progress-bar bg-white" role="progressbar"
+									style="width: {{ average_month_orders|div:average_life_time_orders|mul:100 }}%;"
+                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                                {% endif %}
+							</div>
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Stats Widget 21-->
+				</div>
+			</div>
+			<!--End::Row-->
+
+			<div class="row">
+				<div class="col-lg-12">
+					<!--begin::Card-->
+					<div class="card card-custom gutter-b">
+						<div class="card-header">
+							<div class="card-title">
+								<h3 class="card-label">Total Sales:</h3>
+
+								
+							</div>
+
+							<div class="card-title">
+								<style type="text/css">
+
+									@media (max-width: 1960px) and (min-width: 960px) {
+										/*For Large Devices*/
+										#mobile-date {display: none;} 
+									  }
+				
+									@media (max-width: 960px) and (min-width: 501px) {
+										/*For tablets,phones in landscape*/
+										#mobile-date {display: none;} 
+									  }
+				
+									@media (max-width: 500px) {
+										/*For Small Screen*/
+										#date {width: 60%;}
+										#date a {display: none;}
+									}
+									</style>
+				
+				
+									<div class="pull-right" id="date">
+										<a id="book-table-date">
+											(<strong>Selected Period: From</strong>
+											{{ period_selected.start_date|date }}
+											<strong>To</strong>
+											{{ period_selected.end_date|date }} )
+										</a>
+										<div class="btn-group">
+											<button class="btn btn-xs btn-info show-form-update"
+												data-url="#"><span
+													class="glyphicon glyphicon-pencil"></span>Update Period</button>
+				
+										</div>
+									</div>
+									<div id="mobile-date">
+										<a id="book-table-date">
+											(<strong>Selected Period: From</strong>
+											{{ period_selected.start_date|date }}
+											<strong>To</strong>
+											{{ period_selected.end_date|date }} )
+										</a>
+									</div>
+							</div>
+
+
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-9">
+									<!--begin::Chart-->
+										<canvas id="lineChart_2" height="120"></canvas>
+									<!--end::Chart-->
+								</div>
+
+								<div class="col-lg-3">
+									<ul class="stat-list">
+										<li>
+											<h2 class="no-margins">{{ Orders_in_period }}</h2>
+											<small>Total Orders in period</small>
+											<div class="stat-percent">{{ Order_in_period_rate|floatformat:2 }}% <i
+													class="fa fa-bolt text-navy"></i></div>
+											<div class="progress progress-mini">
+												<div style="width: {{Order_in_period_rate}}%;" class="progress-bar"></div>
+											</div>
+										</li>
+										<br>
+										<li>
+											<h2 class="no-margins ">{{ total_customers_in_period }}</h2>
+											<small>Total Customers in period</small>
+											<div class="stat-percent">{{Customer_in_period_rate|floatformat:2}}% <i
+													class="fa fa-bolt text-navy"></i></div>
+											<div class="progress progress-mini">
+												<div style="width: {{Customer_in_period_rate}}%;" class="progress-bar"></div>
+											</div>
+										</li>
+										<br>
+										<li>
+											<h2 class="no-margins ">{{ life_time_sales_in_period|format_number }}</h2>
+											<small>Total sales in period</small>
+											<div class="stat-percent">{{sales_in_period_rate|floatformat:2}}% <i
+													class="fa fa-bolt text-navy"></i></div>
+											<div class="progress progress-mini">
+												<div style="width: {{sales_in_period_rate}}%;" class="progress-bar"></div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<!--end::Card-->
+				</div>
+			</div>
+			<div class="row">
+
+
+				<div class="col-lg-4 col-xxl-4">
+					<!--begin::List Widget 9-->
+					<div class="card card-custom card-stretch gutter-b">
+						<!--begin::Header-->
+						<div class="card-header border-0 pt-5">
+							<h3 class="card-title align-items-start flex-column">
+								<span class="card-label font-weight-bolder text-dark">All Coupons</span>
+								<span class="text-muted mt-3 font-weight-bold font-size-sm">You have
+									{{ coupons_list|length }} valid coupons</span>
+							</h3>
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body pt-8">
+							{% for coupon in coupons_list %}
+							<!--begin::Item-->
+							<div class="d-flex align-items-center mb-10">
+								<!--begin::Symbol-->
+								<div class="symbol symbol-40 symbol-light-warning mr-5">
+									<span class="symbol-label">
+										<span class="svg-icon svg-icon-lg svg-icon-warning">
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+												xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+												viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24" />
+													<path
+														d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+														fill="#000000" fill-rule="nonzero"
+														transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)" />
+													<path
+														d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+														fill="#000000" fill-rule="nonzero" opacity="0.3" />
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+									</span>
+								</div>
+								<!--end::Symbol-->
+								<!--begin::Text-->
+								<div class="d-flex flex-column font-weight-bold">
+									<a href="#"
+										class="text-dark-75 text-hover-primary mb-1 font-size-lg">{{ coupon.coupon_code }}</a>
+									<span class="text-muted">Discount - {{ coupon.discount_percentage }} %</span>
+								</div>
+								<!--end::Text-->
+							</div>
+							<!--end::Item-->
+							{% endfor %}
+
+							<!--begin::Item-->
+
+						</div>
+						<!--end::Body-->
+					</div>
+				</div>
+
+
+
+				<div class="col-lg-8 col-xxl-8">
+					<!--begin::Advance Table Widget 2-->
+					<div class="card card-custom card-stretch gutter-b">
+						<!--begin::Header-->
+						<div class="card-header border-0 pt-5">
+							<h3 class="card-title align-items-start flex-column">
+								<span class="card-label font-weight-bolder text-dark">New Orders</span>
+								<!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new
+									members</span> -->
+							</h3>
+							<div class="card-toolbar">
+								<ul class="nav nav-pills nav-pills-sm nav-dark-75">
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4 active" data-toggle="tab"
+											href="#kt_tab_pane_11_1">Month</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4" data-toggle="tab"
+											href="#kt_tab_pane_11_2">Week</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link py-2 px-4" data-toggle="tab" href="#kt_tab_pane_11_3">Day</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body pt-2 pb-0 mt-n3">
+							<div class="tab-content mt-5" id="myTabTables11">
+								<!--begin::Tap pane (Month)-->
+								<div class="tab-pane fade show active" id="kt_tab_pane_11_1" role="tabpanel"
+									aria-labelledby="kt_tab_pane_11_1">
+									<!--begin::Table-->
+									<div class="table-responsive">
+										<table class="table table-borderless table-vertical-center">
+											<thead>
+												<tr>
+													<th class="p-0 w-40px"></th>
+													<th class="p-0 min-w-200px"></th>
+													<th class="p-0 min-w-100px"></th>
+													<th class="p-0 min-w-125px"></th>
+													<th class="p-0 min-w-110px"></th>
+													<th class="p-0 min-w-150px"></th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for order in order_list_month %}
+												<tr>
+													<td class="pl-0 py-4">
+														<div class="symbol symbol-50 symbol-light">
+															<span class="symbol-label">
+																<img src="{% static 'assets/media/svg/icons/General/Clipboard.svg' %}"
+																	class="h-50 align-self-center" alt="" />
+															</span>
+														</div>
+													</td>
+													<td class="pl-0">
+														<a href="#"
+															class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ order.address.first_name }}
+															{{ order.address.last_name }}</a>
+														<div>
+															<span class="font-weight-bolder">Phone:</span>
+															<a class="text-muted font-weight-bold text-hover-primary"
+																href="tel:{{ order.address.phone_no }}"
+																target="__blank">{{ order.address.phone_no }}</a>
+														</div>
+													</td>
+													<td class="text-right">
+														<span
+															class="text-dark-75 font-weight-bolder d-block font-size-lg">&#8377;
+															{{ order.grand_total }}</span>
+														<span class="text-muted font-weight-bold">Paid</span>
+													</td>
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">#{{ order.order_id }}</span>
+													</td>
+
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">{{ order.date_ordered|date }}</span>
+													</td>
+
+													<td><a href="#"
+															class="btn btn-info font-weight-bolder font-size-sm mr-3">View
+															Order</a></td>
+												</tr>
+												{% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+									<!--end::Table-->
+								</div>
+								<!--end::Tap pane-->
+								<!--begin::Tap pane-->
+								<div class="tab-pane fade" id="kt_tab_pane_11_2" role="tabpanel"
+									aria-labelledby="kt_tab_pane_11_2">
+									<!--begin::Table-->
+									<div class="table-responsive">
+										<table class="table table-borderless table-vertical-center">
+											<thead>
+												<tr>
+													<th class="p-0 w-40px"></th>
+													<th class="p-0 min-w-200px"></th>
+													<th class="p-0 min-w-100px"></th>
+													<th class="p-0 min-w-125px"></th>
+													<th class="p-0 min-w-110px"></th>
+													<th class="p-0 min-w-150px"></th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for order in order_list_week %}
+												<tr>
+													<td class="pl-0 py-4">
+														<div class="symbol symbol-50 symbol-light">
+															<span class="symbol-label">
+																<img src="{% static 'assets/media/svg/icons/General/Clipboard.svg' %}"
+																	class="h-50 align-self-center" alt="" />
+															</span>
+														</div>
+													</td>
+													<td class="pl-0">
+														<a href="#"
+															class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ order.address.first_name }}
+															{{ order.address.last_name }}</a>
+														<div>
+															<span class="font-weight-bolder">Phone:</span>
+															<a class="text-muted font-weight-bold text-hover-primary"
+																href="tel:{{ order.address.phone_no }}"
+																target="__blank">{{ order.address.phone_no }}</a>
+														</div>
+													</td>
+													<td class="text-right">
+														<span
+															class="text-dark-75 font-weight-bolder d-block font-size-lg">&#8377;
+															{{ order.grand_total }}</span>
+														<span class="text-muted font-weight-bold">Paid</span>
+													</td>
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">#{{ order.order_id }}</span>
+													</td>
+
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">{{ order.date_ordered|date }}</span>
+													</td>
+
+													<td><a href="#"
+															class="btn btn-info font-weight-bolder font-size-sm mr-3">View
+															Order</a></td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+									<!--end::Table-->
+								</div>
+								<!--end::Tap pane-->
+								<!--begin::Tap pane-->
+								<div class="tab-pane fade" id="kt_tab_pane_11_3" role="tabpanel"
+									aria-labelledby="kt_tab_pane_11_3">
+									<!--begin::Table-->
+									<div class="table-responsive">
+										<table class="table table-borderless table-vertical-center">
+											<thead>
+												<tr>
+													<th class="p-0 w-40px"></th>
+													<th class="p-0 min-w-200px"></th>
+													<th class="p-0 min-w-100px"></th>
+													<th class="p-0 min-w-125px"></th>
+													<th class="p-0 min-w-110px"></th>
+													<th class="p-0 min-w-150px"></th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for order in order_list_day %}
+												<tr>
+													<td class="pl-0 py-4">
+														<div class="symbol symbol-50 symbol-light">
+															<span class="symbol-label">
+																<img src="{% static 'assets/media/svg/icons/General/Clipboard.svg' %}"
+																	class="h-50 align-self-center" alt="" />
+															</span>
+														</div>
+													</td>
+													<td class="pl-0">
+														<a href="#"
+															class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ order.address.first_name }}
+															{{ order.address.last_name }}</a>
+														<div>
+															<span class="font-weight-bolder">Phone:</span>
+															<a class="text-muted font-weight-bold text-hover-primary"
+																href="tel:{{ order.address.phone_no }}"
+																target="__blank">{{ order.address.phone_no }}</a>
+														</div>
+													</td>
+													<td class="text-right">
+														<span
+															class="text-dark-75 font-weight-bolder d-block font-size-lg">&#8377;
+															{{ order.grand_total }}</span>
+														<span class="text-muted font-weight-bold">Paid</span>
+													</td>
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">#{{ order.order_id }}</span>
+													</td>
+
+
+													<td class="text-right">
+														<span
+															class="text-muted font-weight-500">{{ order.date_ordered|date }}</span>
+													</td>
+
+													<td><a href="#"
+															class="btn btn-info font-weight-bolder font-size-sm mr-3">View
+															Order</a></td>
+												</tr>
+												{% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+									<!--end::Table-->
+								</div>
+								<!--end::Tap pane-->
+							</div>
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Advance Table Widget 2-->
+				</div>
+
+
+
+			</div>
+			<!--end::Row-->
+
+
+			<div class="row">
+				<div class="col-xl-12 col-md-12">
+					<!--begin::Card-->
+					<div class="card card-custom gutter-b">
+						<!--begin::Header-->
+						<div class="card-header card-header-tabs-line">
+							<div class="card-toolbar">
+								<ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-bold nav-tabs-line-3x"
+									role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" data-toggle="tab"
+											href="#kt_apps_contacts_view_tab_1">
+											<span class="nav-icon mr-2">
+												<span class="svg-icon mr-3">
+													<!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg"
+														xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+														height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none"
+															fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24" />
+															<path
+																d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z"
+																fill="#000000" />
+															<circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5"
+																r="2.5" />
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</span>
+											<span class="nav-text">Best Seller</span>
+										</a>
+									</li>
+									<li class="nav-item mr-3">
+										<a class="nav-link" data-toggle="tab" href="#kt_apps_contacts_view_tab_2">
+											<span class="nav-icon mr-2">
+												<span class="svg-icon mr-3">
+													<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Chat-check.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg"
+														xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+														height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none"
+															fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24" />
+															<path
+																d="M4.875,20.75 C4.63541667,20.75 4.39583333,20.6541667 4.20416667,20.4625 L2.2875,18.5458333 C1.90416667,18.1625 1.90416667,17.5875 2.2875,17.2041667 C2.67083333,16.8208333 3.29375,16.8208333 3.62916667,17.2041667 L4.875,18.45 L8.0375,15.2875 C8.42083333,14.9041667 8.99583333,14.9041667 9.37916667,15.2875 C9.7625,15.6708333 9.7625,16.2458333 9.37916667,16.6291667 L5.54583333,20.4625 C5.35416667,20.6541667 5.11458333,20.75 4.875,20.75 Z"
+																fill="#000000" fill-rule="nonzero" opacity="0.3" />
+															<path
+																d="M2,11.8650466 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L12.9835977,18 C12.7263047,14.0909841 9.47412135,11 5.5,11 C4.23590829,11 3.04485894,11.3127315 2,11.8650466 Z M6,7 C5.44771525,7 5,7.44771525 5,8 C5,8.55228475 5.44771525,9 6,9 L15,9 C15.5522847,9 16,8.55228475 16,8 C16,7.44771525 15.5522847,7 15,7 L6,7 Z"
+																fill="#000000" />
+														</g>
+													</svg>
+													<!--end::Svg Icon-->
+												</span>
+											</span>
+											<span class="nav-text">New Customer</span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body px-0">
+							<div class="tab-content pt-5">
+								<!--begin::Tab Content-->
+								<div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
+									<div class="container">
+										<!--begin::Table-->
+										<div class="table-responsive">
+											<table
+												class="table table-head-custom table-head-bg table-borderless table-vertical-center">
+												<thead>
+													<tr class="text-left text-uppercase">
+														<th style="min-width: 250px" class="pl-7">
+															<span class="text-dark-75">products</span>
+														</th>
+														<th style="min-width: 100px">quantity</th>
+														<th style="min-width: 100px">share</th>
+														<th style="min-width: 100px">amount</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for stock in top_stock %}
+													{% if stock.total_sales != 0 %}
+													<tr>
+														<td class="pl-0 py-8">
+															<div class="d-flex align-items-center">
+																<div class="symbol symbol-50 symbol-light mr-4">
+																	<span class="symbol-label">
+																		{% if stock.image_1 %}
+																		<img src="{{ stock.image_1.url }}"
+																			class="h-75 align-self-end" alt="" />
+																		{% else %}
+																		<img src="{% static 'assets/media/svg/icons/General/Clipboard.svg' %}"
+																			class="h-75 align-self-end" alt="" />
+																		{% endif %}
+
+																	</span>
+																</div>
+																<div>
+																	<a href="#"
+																		class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ stock.name }}</a>
+																	<!-- <span class="text-muted font-weight-bold d-block">HTML, JS,
+																ReactJS</span> -->
+																</div>
+															</div>
+														</td>
+														<td>
+															<span
+																class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ stock.quantity_sales|floatformat:0 }}</span>
+															<!-- <span class="text-muted font-weight-bold">In Proccess</span> -->
+														</td>
+														{% if top_stock_total != 0 %}
+														<td>
+															<span
+																class="text-dark-75 font-weight-bolder d-block font-size-lg">{{ stock.total_sales|div:top_stock_total|mul:100|floatformat:2 }}%</span>
+															<!-- <span class="text-muted font-weight-bold">Paid</span> -->
+														</td>
+														{% else %}
+														<td>
+															<span
+																class="text-dark-75 font-weight-bolder d-block font-size-lg">No
+																Sales</span>
+															<!-- <span class="text-muted font-weight-bold">Paid</span> -->
+														</td>
+														{% endif %}
+
+														<td>
+															<span
+																class="text-dark-75 font-weight-bolder d-block font-size-lg">&#8377;
+																{{ stock.total_sales|floatformat:2 }}</span>
+															<!-- <span class="text-muted font-weight-bold">Paid</span> -->
+														</td>
+													</tr>
+													{% endif %}
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+										<!--end::Table-->
+									</div>
+								</div>
+								<!--end::Tab Content-->
+								<!--begin::Tab Content-->
+								<div class="tab-pane" id="kt_apps_contacts_view_tab_2" role="tabpanel">
+									<div class="container">
+										<div class="table-responsive">
+											<table class="table table-borderless table-vertical-center">
+												<thead>
+													<tr>
+														<th class="p-0 w-40px"></th>
+														<th class="p-0 min-w-200px"></th>
+														<th class="p-0 min-w-100px"></th>
+														<th class="p-0 min-w-125px"></th>
+														<th class="p-0 min-w-110px"></th>
+														<th class="p-0 min-w-150px"></th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for item in new_customers %}
+													<tr>
+														<td class="pl-0 py-4">
+															<div class="symbol symbol-50 symbol-light">
+																<span class="symbol-label">
+																	{% if item.image %}
+																	<img src="{{ item.image.url }}"
+																		class="h-50 align-self-center"
+																		alt="{{ item.user.username }}" />
+																	{% else %}
+																	<img src="{% static 'assets/images/User-Avatar.png' %}"
+																		class="h-50 align-self-center"
+																		alt="{{ item.user.username }}" />
+																	{% endif %}
+																</span>
+															</div>
+														</td>
+														<td class="pl-0">
+															<a href="#"
+																class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{% if item.full_name %}{{ item.full_name }}
+																{% else %}{{ item.user.username }}{% endif %}</a>
+															<div>
+																<span class="font-weight-bolder">Phone:</span>
+																<a class="text-muted font-weight-bold text-hover-primary"
+																	href="tel:{{ item.phone_no }}"
+																	target="__blank">{{ item.phone_no }}</a>
+															</div>
+														</td>
+														<td class="text-right">
+															<span
+																class="text-dark-75 font-weight-bolder d-block font-size-lg"><i
+																	class="fa fa-envelope"> </i>&nbsp;
+																{{ item.email }}</span>
+															<!-- <span class="text-muted font-weight-bold">Paid</span> -->
+														</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+										<!--end::Table-->
+									</div>
+									<!--begin::Table-->
+									
+								</div>
+								<!--end::Tab Content-->
+
+
+							</div>
+						</div>
+						<!--end::Body-->
+					</div>
+					<!--end::Card-->
+				</div>
+			</div>
+			<!--end::Dashboard-->
+		</div>
+		<!--end::Container-->
+	</div>
+	<!--end::Entry-->
+</div>
+<!--end::Content-->
+
+<div class="modal inmodal" id="modal-book-date" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+
+<!-- ChartJS-->
+<script src="{% static 'inspinia/js/plugins/chartJs/Chart.min.js' %}"></script>
+
+<!-- Project scripts -->
+<script src="{% static 'daterange/plugin.js' %}"></script>
+
+
+<script>
+    //xyz
+    $(document).ready(function () {
+        var lineData = {
+            labels: [{% for key, value in results %}'{{ key.0|month_name }},{{ key.1|unlocalize }}', {% endfor %}],
+        datasets: [
+        {
+            label: "Sales",
+            backgroundColor: "rgb(137,80,252)",
+            borderColor: "rgb(137,80,252)",
+            pointBackgroundColor: "rgb(137,80,252)",
+            pointBorderColor: "#fff",
+            data: [{% for key, value in results %}{{ value.0| unlocalize }}, {% endfor %}]
+                    },
+            ]
+        };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChart_2").getContext("2d");
+    new Chart(ctx, { type: 'line', data: lineData, options: lineOptions });
+    });
+</script>
+
+{% endblock %}

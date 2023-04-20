@@ -11,7 +11,7 @@ class ProductCategory(models.Model):
     """
     name = models.CharField(max_length=200)
     slug = models.SlugField(
-		max_length=200, unique=True, null=True, blank=True)
+		  max_length=200, unique=True, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -26,19 +26,20 @@ class Product(models.Model):
     """
     name = models.CharField(max_length=200)
     category = models.ForeignKey(
-		ProductCategory, on_delete=models.CASCADE, related_name='products', null=True)
+		  ProductCategory, on_delete=models.CASCADE, related_name='products', null=True)
     image_1 = models.ImageField(
         upload_to='product/product_image_1', null=True, blank=True)
     image_2 = models.ImageField(
         upload_to='product/product_image_2', null=True, blank=True)
     image_3 = models.ImageField(
         upload_to='product/product_image_3', null=True, blank=True)
+    original_file = models.FileField(upload_to='product/original_file', null=True, blank=True)
     content_1 = RichTextUploadingField(
-		blank=True, null=True, config_name='special')
+		  blank=True, null=True, config_name='special')
     content_2 = RichTextUploadingField(
-		blank=True, null=True, config_name='special')
+		  blank=True, null=True, config_name='special')
     content_3 = RichTextUploadingField(
-		blank=True, null=True, config_name='special')
+		  blank=True, null=True, config_name='special')
     product_price = models.DecimalField(default=0.00, max_digits=20, decimal_places=2)
     slug = models.SlugField(
         max_length=200, unique=True, null=True, blank=True)

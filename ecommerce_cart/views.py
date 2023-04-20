@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.db.models import Sum, Value, Count, FloatField, IntegerField
+from django.views.generic import ListView, DetailView
 from django.db.models.functions import Coalesce
 
 from user_profile.models import *
@@ -205,3 +206,33 @@ def checkout_confirm_page(request):
         'applied_address' : applied_address
     }
     return CommonMixin.render(request, "check_out_confirm.html", context)
+
+
+############################# Admin Templates ##############################
+
+
+class UserOrderListAdminView(CommonMixin, ListView):
+    """
+    User Order Admin List
+    """
+    model = UserOrders
+    context_object_name = "order_list"
+    template_name = "admin_templates/order_list_admin.html"
+    paginate_by = 15
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-id')
+
+
+class OrderDetailView(DetailView):
+    """
+    Order Detail View
+    """
+    context_object_name = 'orders'
+    model = UserOrders
+    template_name = "admin_templates/order_details_admin.html"
+
+    def get_object(self):
+        orders = UserOrders.objects.filter(
+            pk=self.kwargs['user_order_pk']).first()
+        return orders

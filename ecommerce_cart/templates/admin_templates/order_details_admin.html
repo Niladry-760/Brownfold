@@ -1,0 +1,392 @@
+{% extends "metronics/base.html" %}
+{% load static %}
+
+{% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+{% load poll_extras %}
+{% load crispy_forms_tags %}
+
+{% block title %} Order Details {% endblock %}
+
+{% block content %}
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <!--begin::Subheader-->
+  <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+      <!--begin::Info-->
+      <div class="d-flex align-items-center flex-wrap mr-2">
+        <!--begin::Page Title-->
+        <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order Details</h5>
+        <!--end::Page Title-->
+
+        <!--begin::Actions-->
+        <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+        <!-- <span class="text-muted font-weight-bold mr-4">#XRS-45670</span>
+				<a href="#" class="btn btn-light-warning font-weight-bolder btn-sm">Add New</a> -->
+        <!--end::Actions-->
+
+        <!--begin::Breadcrumb-->
+        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+          <li class="breadcrumb-item">
+            <a href="{% url 'admin_index' %}" class="text-muted">Admin Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'ecommerce:orders_list_admin' %}" class="text-muted">Order List</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#" class="text-muted">Order Details</a>
+          </li>
+        </ul>
+        <!--end::Breadcrumb-->
+
+
+
+      </div>
+      <!--end::Info-->
+      <!--begin::Toolbar-->
+      <div class="d-flex align-items-center">
+        <!--begin::Actions-->
+        <!-- <a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Today</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Month</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Year</a> -->
+        <!--end::Actions-->
+        <!--begin::Daterange-->
+        <a href="#" class="btn btn-sm btn-light font-weight-bold mr-2"
+          data-toggle="tooltip" data-placement="left">
+          <span class="text-muted font-size-base font-weight-bold mr-2"
+            id="kt_dashboard_daterangepicker_title">Today</span>
+          <span class="text-primary font-size-base font-weight-bolder"
+            id="kt_dashboard_daterangepicker_date">{% now "jS F Y" %}</span>
+        </a>
+        <!--end::Daterange-->
+
+      </div>
+      <!--end::Toolbar-->
+    </div>
+  </div>
+  <!--end::Subheader-->
+
+
+  <div class="row">
+    <div class="col-xl-8 col-md-8 col-sm-12">
+
+      <div class="container">
+        <div class="card card-custom gutter-b">
+          <!--begin::Header-->
+          <div class="card-header card-header-tabs-line">
+            <div class="card-toolbar">
+              <h5>Order ID : #{{ orders.order_id }}</h5>
+            </div>
+            <div class="card-toolbar">
+              <h5 class="pull-right"><span style="display: block;">Order Date : {{ orders.date_ordered|date }}</span>
+              </h5>
+            </div>
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body px-0">
+            <div class="tab-content pt-5">
+
+              <div class="container">
+                <div class="table-responsive">
+                  <table class="table shoping-cart-table">
+
+                    <tbody>
+                      {% for item in orders.products.all %}
+                      <tr>
+                        <td width="90">
+                          <div>
+                            {% if item.product.image_1 %}
+                            <img class="product_img" src="{{ item.product.image_1.url }}"
+                              alt="product picture" height="80" width="100">
+                            {% else %}
+                            <img class="product_img" src="{% static 'my_store_version3/images/medicine.jpg' %}"
+                              height="80" width="100">
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td class="desc">
+                          <h3>
+                            <a href="#" class="text-navy">
+                              {{ item.product.name }}
+                            </a>
+                          </h3>
+                          <h4>Quantity : {{ item.quantity }}</h4>
+                          <p class="small">
+                            {{ item.product.short_description|safe }}
+                          </p>
+
+
+
+                        </td>
+
+
+                        <td>
+                          <h4>
+                            <strong>{{ item.cart_total }}/-</strong>
+                          </h4>
+                        </td>
+                      </tr>
+
+                      {% empty %}
+
+                      <tr>
+                        <td colspan=3> No Item in Order.</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <!--end::Table-->
+              </div>
+
+            </div>
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Card-->
+
+
+        <div class="card card-custom gutter-b">
+          <!--begin::Header-->
+          <div class="card-header card-header-tabs-line">
+            <div class="card-toolbar">
+              <h5>Payment Details</h5>
+            </div>
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body px-0">
+            <div class="tab-content pt-5">
+
+              <div class="container">
+              {% if orders.payment_through == 'Paytm' %}
+                <ul class="list-group">
+                  <li class="list-group-item active">Payment GateWay Used : Razorpay</li>
+                  <li class="list-group-item active">Paytm Transaction ID : {{ orders.paytm_transaction_id }}</li>
+                  <li class="list-group-item active">Bank Transaction ID : {{ orders.paytm_bank_transaction_id }}</li>
+                </ul>
+              {% else %}
+                <ul class="list-group">
+                  <li class="list-group-item active">Payment GateWay Used : Razorpay</li>
+                  <li class="list-group-item active">Razorpay Order ID : {{ orders.razorpay_order_id }}</li>
+                  <li class="list-group-item active">Razorpay Payment ID : {{ orders.razorpay_payment_id }}</li>
+                  <li class="list-group-item active">Razorpay Attempts : {{ orders.razorpay_attempts }}</li>
+                </ul>
+              {% endif %}
+              </div>
+
+            </div>
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Card-->
+
+      </div>
+      <!--begin::Card-->
+
+    </div>
+
+
+
+
+    <div class="col-xl-4 col-md-4 col-sm-12">
+
+      <div class="container">
+        <div class="card card-custom gutter-b">
+          <!--begin::Header-->
+          <div class="card-header card-header-tabs-line">
+            <div class="card-toolbar">
+              <h5>Shipping Details</h5>
+            </div>
+            <div class="card-toolbar">
+              <a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Change Address</a>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Address</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form method="POST" action="{% url 'ecommerce:change_address_admin' address_pk=orders.address.pk %}">
+    
+                    <div class="modal-body">
+                      
+                      {% csrf_token %}
+                        {{form|crispy}}
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body px-0">
+            <div class="tab-content pt-5">
+
+              <div class="container">
+                <div class="table-responsive">
+                  <table class="table shoping-cart-table">
+
+                    <tbody>
+                      <tr>
+                        <th style="width:50%">Customer Name</th>
+                        <td><strong></strong>{{ orders.address.first_name }} {{ orders.address.last_name }}</td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Customer Address</th>
+                        <td>{{ orders.address.address_line_1 }}, <br>{{ orders.address.address_line_2 }} </td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Customer State</th>
+                        <td>{{ orders.address.state.state_name }}</td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Customer Pin</th>
+                        <td>{{ orders.address.postcode }}</td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Customer Contact</th>
+                        <td>{{ orders.address.phone_no }}</td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Customer Country</th>
+                        <td>{{ orders.address.country.country_name }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--end::Table-->
+              </div>
+
+            </div>
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Card-->
+
+
+
+        {% if orders.coupon_applied %}
+        <div class="card card-custom gutter-b">
+          <!--begin::Header-->
+          <div class="card-header card-header-tabs-line">
+            <div class="card-toolbar">
+              <h5>Offers Applied</h5>
+            </div>
+            
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body px-0">
+            <div class="tab-content pt-5">
+
+              <div class="container">
+                <div class="table-responsive">
+                  <table class="table shoping-cart-table">
+
+                    <tbody>
+                      <tr>
+                        <th style="width:50%">Coupon Code</th>
+                        <td><strong></strong>{{ orders.coupon_applied.coupon_code }}</td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Coupon Discount</th>
+                        <td>
+          
+                         {{orders.coupon_applied.discount_value}} </td>
+                      </tr>
+                      <tr>
+                        <th style="width:50%">Discount Amount:(&#8377;)</th>
+                        <td>&#8377;{{ orders.promo_amount }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--end::Table-->
+              </div>
+
+            </div>
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Card-->
+        {% endif %}
+
+
+
+
+        <div class="card card-custom gutter-b">
+          <!--begin::Header-->
+          <div class="card-header card-header-tabs-line">
+            <div class="card-toolbar">
+              <h5>Order Summary</h5>
+            </div>
+            
+          </div>
+          <!--end::Header-->
+          <!--begin::Body-->
+          <div class="card-body px-0">
+            <div class="tab-content pt-5">
+
+              <div class="container">
+                <div class="table-responsive">
+                  <table class="table shoping-cart-table">
+
+                    <tbody>
+                      <tr>
+                        <th style="width:50%">Subtotal:(&#8377;)</th>
+                        <td><strong></strong>&#8377;{{ orders.sub_total }}</td>
+                      </tr>
+                      {% if orders.promo_amount != 0 %}
+                      <tr>
+                        <th style="width:50%">Coupon Discount</th>
+                        <td><strong></strong>(-)&#8377;{{ orders.promo_amount }}</td>
+                      </tr>
+                      {% endif %}
+                      <tr>
+                        <th style="width:50%">Total:(&#8377;)</th>
+                        <td>&#8377;{{ orders.grand_total }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--end::Table-->
+              </div>
+
+            </div>
+          </div>
+          <!--end::Body-->
+        </div>
+        <!--end::Card-->
+      </div>
+      <!--begin::Card-->
+
+    </div>
+  </div>
+  <!--end::Dashboard-->
+
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'assets/js/pages/crud/ktdatatable/base/html-table.js' %}"></script>
+<!--end::Page Scripts-->
+
+{% endblock %}

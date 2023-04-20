@@ -135,3 +135,20 @@ class UserOrders(models.Model):
 
     def __str__(self):
 	    return '{0} - {1}'.format(self.customer, self.order_id)
+    
+
+class UserProducts(models.Model):
+	"""
+	User Products Model For Product Analytics
+	"""
+	customer = models.ForeignKey(
+		'user_profile.Customer', on_delete=models.CASCADE, related_name='user_stock', blank=True, null=True)
+	product = models.ForeignKey(
+		'products.Product', on_delete=models.CASCADE, related_name='user_product', blank=True, null=True)
+	product_quantity = models.IntegerField(default=0)
+
+	grand_total = models.DecimalField(
+	    default=0.00, max_digits=19, decimal_places=2, null=True)
+
+	def __str__(self):
+		return '{0} - {1}'.format(self.customer, str(self.product))

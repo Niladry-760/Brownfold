@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} {{ blog_tag_details.name }} {% endblock %}
+
+{% block content %}
+
+            <!-- Breadcrumb Area start -->
+            <section class="breadcrumb-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="breadcrumb-content">
+                                <h1 class="breadcrumb-hrading">{{ blog_tag_details.name }}</h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Breadcrumb Area End -->
+            <!-- Shop Category Area End -->
+            <div class="shop-category-area blog-grid">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="blog-posts">
+                                <div class="row">
+                                {% for item in blog_list %}
+                                    <div class="col-md-6 mb-res-sm-30px">
+                                        <div class="single-blog-post blog-grid-post">
+                                            <div class="blog-post-media">
+                                                <div class="blog-image">
+                                                    <a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">
+                                                    {% if item.blog_image %}
+                                                    	{% thumbnail item.blog_image "400x300" as im %}
+                                                    	<img src="{{ im.url }}" alt="{{ item.blog_title }}" />
+                                                    	{% endthumbnail %}
+                                                    {% else %}
+                                                    	<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" />
+                                                    {% endif %}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="blog-post-content-inner mt-30">
+                                                <h4 class="blog-title"><a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">{{ item.blog_title }}</a></h4>
+                                                <ul class="blog-page-meta">
+                                                    
+                                                    <li>
+                                                        <a href="#"><i class="ion-calendar"></i> {{ item.post_date }}</a>
+                                                    </li>
+                                                </ul>
+                                                {{ item.description|safe|striptags|truncatewords:"15" }}
+                                                <a class="read-more-btn" href="{% url 'blog:blogdetail' blog_slug=item.slug %}"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- single blog post -->
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <!--  Pagination Area Start -->
+                            {% if blog_list.has_other_pages %}
+                            <div class="pro-pagination-style text-center">
+                                <ul>
+                                	{% if blog_list.has_previous %}
+	                                    <li>
+	                                        <a class="prev" href="?page={{ blog_list.previous_page_number }}"><i class="ion-ios-arrow-left"></i></a>
+	                                    </li>
+                                    {% else %}
+                                    	<li>
+	                                        <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>
+	                                    </li>
+	                                {% endif %}
+
+	                                {% for i in blog_list.paginator.page_range %}
+	                                	{% if blog_list.number == i %}
+                                    		<li><a class="active" href="#">{{ i }}</a></li>
+                                    	{% elif i > blog_list.number|add:'-3' and i < blog_list.number|add:'3' %}
+                                    		<li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    	{% endif %}
+                                    {% endfor %}
+
+                                    {% if blog_list.has_next %}
+	                                    <li>
+	                                        <a class="next" href="?page={{ blog_list.next_page_number }}"><i class="ion-ios-arrow-right"></i></a>
+	                                    </li>
+                                    {% else %}
+                                    	<li>
+	                                        <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>
+	                                    </li>
+	                                {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <!--  Pagination Area End -->
+                        </div>
+                        <!-- Sidebar Area Start -->
+                        <div class="col-lg-3 col-md-12 mb-res-md-60px mb-res-sm-60px">
+                            <div class="left-sidebar">
+                                <!-- Sidebar single item -->
+                                <div class="sidebar-widget">
+                                    <div class="main-heading">
+                                        <h2>Search</h2>
+                                    </div>
+                                    <div class="search-widget">
+                                        <form method="GET" action="{% url 'blog:search_blog' %}">
+                                            <input name="q" value="{{request.GET.q}}" placeholder="Type and Hit Enter" type="text" />
+                                            <button type="submit"><i class="ion-ios-search-strong"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Sidebar single item -->
+                                <!-- Sidebar single item -->
+                                <div class="sidebar-widget mt-40">
+                                    <div class="main-heading">
+                                        <h2>Categories</h2>
+                                    </div>
+                                    <div class="category-post">
+                                        <ul>
+                                        {% for item in blog_categories %}
+                                            <li><a href="{% url 'blog:blog_category_details' blog_category_slug=item.slug %}">{{ item.title }} </a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Sidebar single item -->
+                                <div class="sidebar-widget mt-40">
+                                    <div class="main-heading">
+                                        <h2>Recent Post</h2>
+                                    </div>
+                                    <div class="recent-post-widget">
+                                    {% for item in latest_blogs %}
+                                        <div class="recent-single-post d-flex">
+                                            <div class="thumb-side">
+                                                <a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">
+                                                {% if item.blog_image %}
+                                                	{% if request.user_agent.browser.family in browser_family or request.user_agent.device.family == 'iPhone' %}
+                                                		{% thumbnail item.blog_image "90x90" as im %}
+                                                		<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
+                                                		{% endthumbnail %}
+                                                	{% else %}
+                                                		{% thumbnail item.blog_image "90x90" format="WEBP" as im %}
+		                                        		<img src="{{ im.url }}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}">
+		                                        		{% endthumbnail %}
+		                                        	{% endif %}
+		                                        {% else %}
+		                                        	<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
+		                                        {% endif %}
+                                                </a>
+                                            </div>
+                                            <div class="media-side">
+                                                <h5><a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">{{ item.blog_title }} </a></h5>
+                                                <span class="date">{{ item.post_date }}</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- Sidebar single item -->
+                                <!-- <div class="sidebar-widget mt-40">
+                                    <div class="main-heading">
+                                        <h2>Tag</h2>
+                                    </div>
+                                    <div class="sidebar-widget-tag">
+                                        <ul>
+                                        {% for item in blog_tags %}
+                                            <li><a href="{% url 'blog:blog_tag_details' blog_tag_slug=item.slug %}">{{ item.name }}</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div> -->
+                                <!-- Sidebar single item -->
+                            </div>
+                        </div>
+                        <!-- Sidebar Area End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Shop Category Area End -->
+
+{% endblock %}

@@ -1,0 +1,306 @@
+{% extends "metronics/base.html" %}
+{% load static %}
+
+{% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+{% load poll_extras %}
+
+{% block title %}
+
+{% if not form.instance.pk %}
+Product Create
+{% else %}
+Product Update
+{% endif %}
+
+{% endblock %}
+
+{% block css %}
+
+<!-- Select2 -->
+<link href="{% static 'inspinia/css/plugins/select2/select2.min.css' %}" rel="stylesheet">
+
+<link href="{% static 'switchery/css/switchery.css' %}" rel="stylesheet">
+
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 14px !important;
+    }
+    .errorlist {
+        color: red;
+    }
+</style>
+
+{% endblock %}
+
+{% block head_extra %}
+
+{{ form.media }}
+
+{% endblock head_extra %}
+
+{% block content %}
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                {% if not form.instance.pk %}
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Product Create</h5>
+                {% else %}
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Product Update</h5>
+                {% endif %}
+                <!--end::Page Title-->
+
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <!-- <span class="text-muted font-weight-bold mr-4">#XRS-45670</span>
+				<a href="#" class="btn btn-light-warning font-weight-bolder btn-sm">Add New</a> -->
+                <!--end::Actions-->
+
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'admin_index' %}" class="text-muted">Admin Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        {% if not form.instance.pk %}
+                        <a href="#" class="text-muted">Product Create</a>
+                        {% else %}
+                        <a href="#" class="text-muted">Product Update</a>
+                        {% endif %}
+                    </li>
+                </ul>
+                <!--end::Breadcrumb-->
+
+
+
+            </div>
+            <!--end::Info-->
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <!--begin::Actions-->
+                <!-- <a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Today</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Month</a>
+				<a href="#" class="btn btn-clean btn-sm font-weight-bold font-size-base mr-1">Year</a> -->
+                <!--end::Actions-->
+                <!--begin::Daterange-->
+                <a href="#" class="btn btn-sm btn-light font-weight-bold mr-2" data-toggle="tooltip"
+                    data-placement="left">
+                    <span class="text-muted font-size-base font-weight-bold mr-2"
+                        id="kt_dashboard_daterangepicker_title">Today</span>
+                    <span class="text-primary font-size-base font-weight-bolder"
+                        id="kt_dashboard_daterangepicker_date">{% now "jS F Y" %}</span>
+                </a>
+                <!--end::Daterange-->
+
+            </div>
+            <!--end::Toolbar-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+
+    <!--begin::Form-->
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12">
+                        <!--begin::Card-->
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b example example-compact">
+                            <div class="card-header">
+                                {% if not form.instance.pk %}
+                                <h3 class="card-title">Product Create</h3>
+                                {% else %}
+                                <h3 class="card-title">Product Update</h3>
+                                {% endif %}
+                                <div class="card-title pull-right">
+                                    <a href="{% url 'product:product_list_admin' %}" class="btn btn-success"><i
+                                            class="flaticon-eye"></i> View All Products</a>
+                                </div>
+
+                                <br>
+                                
+                            </div>
+
+                                {% for fields in form %}
+                                    {% if fields.errors %}
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xl-3 col-md-3"></div>
+                                            <div class="col-xl-6 col-md-6">
+                                                <div class="alert alert-danger alert-dismissable" id="limit-alert" style="width: 472px;text-align: center;background-color: #b8091c;margin-top: 14px;">
+                                                  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                                  <strong>Please Correct The Error Below! And Try Again!</strong>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-3"></div>
+                                        </div>
+                                    </div>    
+                                    {% endif %}
+                                {% endfor %}
+
+
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Product Name
+                                        <span class="text-danger">*</span></label>
+                                    {{ form.name }}
+                                    {{ form.name.errors }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Product Category</label>
+                                    {{ form.category }}
+                                    {{ form.category.errors }}
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleSelect1">First Page Content</label><br>
+                                    {{ form.content_1 }}
+                                    {{ form.content_1.errors }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Second Page Content</label><br>
+                                    {{ form.content_2 }}
+                                    {{ form.content_2.errors }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Third Page Content</label>
+                                    {{ form.content_3 }}
+                                    {{ form.content_3.errors }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Product Price</label>
+                                    {{ form.product_price }}
+                                    {{ form.product_price.errors }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Image 1</label>
+                                    {{ form.image_1 }}
+                                    {{ form.image_1.errors }}
+                                    <span class="form-text text-muted">{{ form.image_1.help_text }}</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Image 2</label>
+                                    {{ form.image_2 }}
+                                    {{ form.image_2.errors }}
+                                    <span class="form-text text-muted">{{ form.image_2.help_text }}</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Image 3</label>
+                                    {{ form.image_3 }}
+                                    {{ form.image_3.errors }}
+                                    <span class="form-text text-muted">{{ form.image_3.help_text }}</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">File To be send to user after purchase</label>
+                                    {{ form.original_file }}
+                                    {{ form.original_file.errors }}
+                                    <span class="form-text text-muted">{{ form.original_file.help_text }}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Cancel</button>
+                            </div>
+
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <!--end::Form-->
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+
+<!--begin::Page Scripts(used by this page)-->
+
+<!-- Formset JS -->
+<script src="{% static 'formset/jquery.formset.js' %}"></script>
+
+<!-- Select2 -->
+<script src="{% static 'inspinia/js/plugins/select2/select2.full.min.js' %}"></script>
+<!--end::Page Scripts-->
+
+
+<script src="{% static 'switchery/js/switchery.js' %}"></script>
+
+
+<script type="text/javascript">
+  
+
+    var elem = document.querySelector('.js-switch_2');
+    var init = new Switchery(elem);
+
+    var elem = document.querySelector('.js-switch_3');
+    var init = new Switchery(elem);
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".select2_demo_2").select2({
+            placeholder: "Select a category",
+            width: '100%',
+            allowClear: true
+        });
+
+        $(".select2_demo_3").select2({
+            placeholder: "Select Tags",
+            width: '100%',
+            allowClear: true
+        });
+
+        $(".select2_demo_4").select2({
+            placeholder: "Select Product Attribute",
+            width: '100%',
+            allowClear: true
+        });
+
+        $('.sizing_row').formset({
+            addText: 'add more sizing',
+            deleteText: 'remove',
+            prefix: '{{ product_sizing_row_formset.prefix }}',
+            formCssClass: 'dynamic-formset2',
+        });
+
+        $('.formset_row').formset({
+            addText: 'add more extra',
+            deleteText: 'remove',
+            prefix: '{{ product_specification_row_formset.prefix }}',
+            formCssClass: 'dynamic-formset1',
+        });
+
+        
+    });
+
+</script>
+
+{% endblock %}

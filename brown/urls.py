@@ -38,4 +38,12 @@ urlpatterns = [
 
     url(r"^ecommerce/", include("ecommerce_cart.urls", namespace="ecommerce_cart")),
 
+    url(r"^blogs/", include("blog.urls", namespace="blog")),
+
+
+    path('superadmin/', views.admin_index, name='admin_index'),
+    url(r'^superadmin/contact-query/$', views.contact_query_view, name="contact_query"),
+	url(r'^superadmin/contact-query/delete/(?P<query_pk>\d+)/$',
+        views.delete_query, name='query_delete'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
