@@ -88,6 +88,16 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.blog_title)
 
+        if self.blog_image:
+            temp_image = Image.open(self.blog_image).convert('RGB')
+            output_io_stream = BytesIO()
+            temp_resized_image = temp_image.resize((800, 800))
+            temp_resized_image.save(
+                output_io_stream, format='JPEG', quality=90)
+            output_io_stream.seek(0)
+            self.blog_image = InMemoryUploadedFile(output_io_stream,
+                                                    'ImageField', "%s.jpg" % self.blog_image.name.split('.')[0], 'image/jpeg', sys.getsizeof(output_io_stream), None)
+
         super(Blog, self).save(*args, **kwargs)
 
 
@@ -97,7 +107,6 @@ class BlogComments(models.Model):
     """ 
     date = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
     comment = models.TextField()
     blog = models.ForeignKey(
         Blog, on_delete=models.CASCADE, related_name='blogs_comment')

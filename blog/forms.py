@@ -70,13 +70,4 @@ class BlogCommentsForm(forms.ModelForm):
     """
     class Meta:
         model = BlogComments
-        fields = ['name', 'email', 'comment']
-
-    def __init__(self, *args, **kwargs):
-        super(BlogCommentsForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs = {
-            'placeholder' : 'Your Name', 'tabindex': "1", }
-        self.fields['email'].widget.attrs = {
-            'placeholder' : 'Your E-mail', 'tabindex': "2", }
-        self.fields['comment'].widget.attrs = {
-            'placeholder': 'Write a review', 'tabindex': "3", }
+        fields = ['name', 'comment']

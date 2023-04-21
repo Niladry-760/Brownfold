@@ -1,366 +1,143 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 {% load static %}
-{% load thumbnail %}
-
-{% block title %} {{ blog_details.blog_title }} {% endblock %}
-
-{% block meta %}
-    <meta name="description" content="{{ blog_details.description|safe|striptags|truncatewords:"30" }}">
-    <meta name="keywords" content="{% for item in blog_details.tags.all %}{{ item.name }}{% if not forloop.last %},{% endif %}{% endfor %}"/>
-
-    <meta name="robots" content="INDEX,FOLLOW"/>
-    <meta property="og:title" content="{{ blog_details.blog_title }}" />
-
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-
-    <meta property="og:description" content="{{ blog_details.description|safe|striptags|truncatewords:"30" }}">
-
-    <meta property="og:site_name" content="Brownfold India" />
-    {% if blog_details.blog_image %}
-    {% thumbnail blog_details.blog_image "500x260" as im %}
-    <meta property="og:image" content="{{ im.url }}">
-    {% endthumbnail %}
-    {% else %}
-    <meta property="og:image" content="{% static 'img/blog_default.jpeg' %}">
-    {% endif %}
-
-    <meta property="og:image:width" content="800" />
-
-    <meta property="og:image:height" content="400" />
-
-    <meta property="og:type" content="posts" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="canonical" href="{{ request.build_absolute_uri }}" />
-
-    <meta name="author" content="Deesha Trade Endeavours Pvt. Ltd.">
-
-    <meta itemprop="description" content="{{ blog_details.description|safe|striptags|truncatewords:"30" }}" />
-
-    {% if blog_details.blog_image %}
-        {% thumbnail blog_details.blog_image "500x260" as im %}
-        <meta itemprop="image" content="{{ im.url }}" />
-        {% endthumbnail %}
-    {% else %}
-        <meta itemprop="image" content="{% static 'assets/img/blog/blog-details.jpg' %}" />
-    {% endif %}
-
-    {% if blog_details.blog_image %}
-        {% thumbnail blog_details.blog_image "500x260" as im %}
-        <meta itemprop="image" content="{{ im.url }}" />
-        {% endthumbnail %}
-    {% else %}
-        <meta itemprop="image" content="{% static 'assets/img/blog/blog-details.jpg' %}" />
-    {% endif %}
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
-    <meta name="twitter:title" content="{{ blog_details.blog_title }}" />
-    <meta name="twitter:description" content="{{ blog_details.description|safe|striptags|truncatewords:"30" }}" />
-    {% if blog_details.blog_image %}
-        {% thumbnail blog_details.blog_image "500x260" as im %}
-        <meta name="twitter:image" content="{{ im.url }}" />
-        {% endthumbnail %}
-    {% else %}
-        <meta name="twitter:image" content="{% static 'assets/img/blog/blog-details.jpg' %}" />
-    {% endif %}
-
-    <meta name="twitter:site" content="Deesha Trade Endeavours Pvt. Ltd." />
-
-{% endblock %}
 
 
 {% block content %}
-
-<!-- Breadcrumb Area start -->
-<section class="breadcrumb-area">
+<section style="margin-bottom: 3rem;margin-top: 7rem;">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="breadcrumb-content">
-                    <h1 class="breadcrumb-hrading">{{ blog_details.blog_title }}</h1>
-                    
+            <!-- <div class="col-sm-12 col-md-12 col-lg-12 mrb_1">
+                <i class="fa-sharp fa-solid fa-arrow-left"></i> BACK
+            </div> -->
+            <div class="col-sm-12 col-md-12 col-lg-12 text-purple">
+                <span>BLOG POST</span>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mrb">
+                <span class="h4">
+                    {{ blog_details.blog_title }}
+                </span>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mrb">
+                <div class="row">
+                    <!-- <div class="col-sm-2 col-md-2 col-lg-2">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-sharp fa-solid fa-share-nodes"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-brands fa-facebook"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-brands fa-twitter"></i>
+                        </button>
+                    </div> -->
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <i class="fa-solid fa-circle-user"></i> TOM HANKS
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <i class="fa-solid fa-calendar-days"></i> 15TH AUGUST 2022
+                    </div>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mrb" style="margin-bottom: -29rem;">
+                {% if blog_details.blog_image %}
+                    <img src="{{ blog_details.blog_image.url }}" alt="" class="img-fluid" style="height: 54%;width: 71rem;">
+                {% else %}
+                <img src="{% static 'assets/img_new/blog_detail.svg' %}" alt="" class="img-fluid">
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 mrb">
+                {{ blog_details.description|safe }}
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                {% for item in tag_list %}
+                <button type="button" class="btn btn-outline-primary button-hover-none">{{ item.name }}</button>
+                {% endfor %}
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <hr>
             </div>
         </div>
     </div>
 </section>
-<!-- Breadcrumb Area End -->
-
-            <!-- Shop Category Area End -->
-            <div class="shop-category-area single-blog">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-12">
-                            <div class="blog-posts">
-                                <div class="single-blog-post blog-grid-post">
-                                    <div class="blog-post-media">
-                                        <div class="blog-image single-blog">
-                                            <a href="#">
-
-                                                {% if blog_details.blog_image %}
-					                                {% if request.user_agent.browser.family in browser_family or request.user_agent.device.family == 'iPhone'  %}
-					                                    {% thumbnail blog_details.blog_image "830x370" as im %}
-                                                        <img src="{{ blog_details.blog_image.url }}" alt="{{ blog_details.blog_title }}" title="{{ blog_details.blog_title }}" />
-                                                        {% endthumbnail %}
-					                                {% else %}
-                                                        {% thumbnail blog_details.blog_image "830x370" format="WEBP" as im %}
-                                                        <img src="{{ im.url }}" class="img-responsive" alt="{{ blog_details.blog_title }}" title="{{ blog_details.blog_title }}">
-                                                        {% endthumbnail %}
-                                                    {% endif %}
-                                                {% else %}
-                                                    <img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ blog_details.blog_title }}" title="{{ blog_details.blog_title }}" />
-
-                                                    {% endif %}
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="blog-post-content-inner">
-                                        <h4 class="blog-title"><a href="#">{{ blog_details.blog_title }}</a></h4>
-                                        <ul class="blog-page-meta">
-                                            <!-- <li>
-                                                <a href="#"><i class="ion-person"></i> Admin</a>
-                                            </li> -->
-                                            <li>
-                                                <a href="#"><i class="ion-calendar"></i> {{ blog_details.post_date }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="single-post-content">
-
-                                        {{ blog_details.description|safe }}
-
-                                    </div>
-                                </div>
-                                <!-- single blog post -->
-                            </div>
-                            <div class="blog-single-tags-share d-sm-flex justify-content-between">
-                                <div class="blog-single-tags d-flex">
-                                    <span class="title">Tags: </span>
-                                    <ul class="tag-list">
-                                        {% for item in blog_details.tags.all %}
-                                            <li><a href="{% url 'blog:blog_tag_details' blog_tag_slug=item.slug %}"> 
-                                                {{ item.name }}
-                                            </a></li>
-                                            {% if not forloop.last %},{% endif %}
-                                        {% endfor %}  
-                                    </ul>
-
-                                </div>
-                                <div class="blog-single-share d-flex">
-                                    <span class="title">Share:</span>
-                                    <ul class="social">
-                                        <li>
-                                            <a href="http://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"><i class="ion-social-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20{{ request.build_absolute_uri }}"><i class="ion-social-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://web.whatsapp.com/send?text={{ request.build_absolute_uri }}"><i class="ion-social-whatsapp-outline"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-related-post">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <!-- Section Title -->
-                                        <div class="section-title underline-shape">
-                                            <h2>Related Post</h2>
-                                        </div>
-                                        <!-- Section Title -->
-                                    </div>
-                                </div>
-                                {% if related_blogs %}
-                                <div class="row">
-                                {% for item in related_blogs %}
-                                    <div class="col-md-4 mb-res-md-30px mb-res-sm-30px">
-                                        <div class="blog-post-media">
-                                            <div class="blog-image single-blog">
-                                                <a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">
-                                                {% if item.blog_image %}
-                                                	<img src="{{ item.blog_image.url }}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
-                                                {% else %}
-                                                	<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
-                                                {% endif %}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="blog-post-content-inner">
-                                            <h4 class="blog-title"><a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">{{ item.blog_title }}</a></h4>
-                                            <ul class="blog-page-meta">
-                                               <!--  <li>
-                                                    <a href="#"><i class="ion-person"></i> Admin</a>
-                                                </li> -->
-                                                <li>
-                                                    <a href="#"><i class="ion-calendar"></i> {{ item.post_date }}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="comment-area">
-                                <h2 class="comment-heading">{{ blog_details.blogs_comment.count }} Comment{{ blog_details.blogs_comment.count|pluralize }}</h2>
-                                <div class="review-wrapper">
-                                {% for item in comment_list %}
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="{% static 'assets/images/testimonial-image/1.png' %}" alt="" />
-                                        </div>
-                                        <div class="review-content">
-                                            <div class="review-top-wrap">
-                                                <div class="review-left">
-                                                    <div class="review-name">
-                                                        <h4>{{ item.name }}</h4>
-                                                        <span class="date">{{ item.post_date }}</span>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="review-left">
-                                                    <a href="#">Reply</a>
-                                                </div> -->
-                                            </div>
-                                            <div class="review-bottom">
-                                                <p>
-                                                    {{ item.comment }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                </div>
-                            </div>
-                            <div class="blog-comment-form">
-                                <h2 class="comment-heading">Leave a Reply</h2>
-                                <p>Your email address will not be published. Required fields are marked *</p>
-                                <form method="POST">
-                                	{% csrf_token %}
-                                	<div class="row">
-	                                    <div class="col-md-12">
-	                                        <div class="single-form">
-	                                            <label>Your Review:</label>
-	                                            {{ form.comment }}
-												{{ form.comment.errors }}
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-md-4">
-	                                        <div class="single-form">
-	                                            <label>Name:</label>
-	                                            {{ form.name }}
-												{{ form.name.errors }}
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-md-4">
-	                                        <div class="single-form">
-	                                            <label>Email:</label>
-	                                            {{ form.email }}
-												{{ form.email.errors }}
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-md-12">
-	                                        <div class="single-form">
-	                                            <input type="submit" value="Submit" />
-	                                        </div>
-	                                    </div>
-	                                </div>
-                                </form>
-                                
-                            </div>
-                        </div>
-
-
-
-                        
-                        <!-- Sidebar Area Start -->
-                        <div class="col-lg-4 col-md-12 mb-res-md-60px mb-res-sm-60px">
-                            <div class="left-sidebar left-sidebar-blog">
-                                <!-- Sidebar single item -->
-                                <div class="sidebar-widget">
-                                    <div class="main-heading">
-                                        <h2>Search</h2>
-                                    </div>
-                                    <div class="search-widget">
-                                        <form method="GET" action="{% url 'blog:search_blog' %}">
-                                            <input name="q" value="{{request.GET.q}}" placeholder="Type and Hit Enter" type="text" />
-                                            <button type="submit"><i class="ion-ios-search-strong"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- Sidebar single item -->
-                                <!-- Sidebar single item -->
-                                <div class="sidebar-widget mt-40">
-                                    <div class="main-heading">
-                                        <h2>Categories</h2>
-                                    </div>
-                                    <div class="category-post">
-                                        <ul>
-                                        {% for item in blog_categories %}
-                                            <li><a href="{% url 'blog:blog_category_details' blog_category_slug=item.slug %}">{{ item.title }} </a></li>
-                                        {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Sidebar single item -->
-                                <div class="sidebar-widget mt-40">
-                                    <div class="main-heading">
-                                        <h2>Trending Post</h2>
-                                    </div>
-                                    <div class="recent-post-widget">
-                                    {% for item in recent_blogs %}
-                                        <div class="recent-single-post d-flex">
-                                            <div class="thumb-side">
-                                                <a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">
-                                                {% if item.blog_image %}
-                                                	{% if request.user_agent.browser.family in browser_family or request.user_agent.device.family == 'iPhone' %}
-                                                		{% thumbnail item.blog_image "450x277" as im %}
-                                                		<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
-                                                		{% endthumbnail %}
-                                                	{% else %}
-                                                		{% thumbnail item.blog_image "450x277" format="WEBP" as im %}
-		                                        		<img src="{{ im.url }}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}">
-		                                        		{% endthumbnail %}
-		                                        	{% endif %}
-		                                        {% else %}
-		                                        	<img src="{% static 'assets/images/blog-image/blog-1.jpg' %}" alt="{{ item.blog_title }}" title="{{ item.blog_title }}" />
-		                                        {% endif %}
-                                                </a>
-                                            </div>
-                                            <div class="media-side">
-                                                <h5><a href="{% url 'blog:blogdetail' blog_slug=item.slug %}">{{ item.blog_title }} </a></h5>
-                                                <span class="date">{{ item.post_date }}</span>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                                <!-- Sidebar single item -->
-                                <!-- <div class="sidebar-widget mt-40">
-                                    <div class="main-heading">
-                                        <h2>Tag</h2>
-                                    </div>
-                                    <div class="sidebar-widget-tag">
-                                        <ul>
-                                        {% for item in tag_list %}
-                                            <li><a href="{% url 'blog:blog_tag_details' blog_tag_slug=item.slug %}">{{ item.name }}</a></li>
-                                        {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div> -->
-                                <!-- Sidebar single item -->
-                            </div>
-                        </div>
-                        <!-- Sidebar Area End -->
-                    </div>
-                </div>
+<!-- end -->
+<!-- section 2 -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 text-center mrb">
+                <span>LEAVE A REPLY</span>
             </div>
-            <!-- Shop Category Area End -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <input class="form-control" name="name" placeholder="Enter Your Name" style="height: 46px">
+                </div>
+    
+                <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top: 2rem;">
+                    <textarea class="form-control" name="comment" placeholder="Write your comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 text-center" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-outline-primary button-hover-none">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</section>
+<!-- end -->
+<!-- section 3 -->
+<section>
+    <div class="container-fluid mrt">
+        <div class="row">
+            {% for item in recent_comments %}
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row" style="margin-bottom: -35px;">
+                    <div class="col-sm-2 col-md-2 col-lg-2 person_acc">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <span>{{ item.name }}</span><br>
+                        <span class="mrb_1">{{ item.date }}</span><br>
+                        <span>
+                            {{ item.comment }}
+                        </span><br>
+                        <div class="mrb"></div>
+                        <img src="assets/img/comment_1.svg" alt="" class="img-fluid">
+                        <img src="assets/img/comment_2.svg" alt="" class="img-fluid">
+                    </div>
+                    <!-- <div class="col-sm-2 col-md-2 col-lg-2 text-purple">
+                        <i class="fa-sharp fa-solid fa-share-nodes"></i>
+                    </div> -->
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
 
 
+    </div>
+    <!-- <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+    </div> -->
+    </div>
+</section>
 
-{% endblock %}
+  {% endblock %}

@@ -88,73 +88,7 @@
 
 <body class="beforePreload ">
 
-    {% if cart_count == 0 %}
-    <div class="cartWrapper">
-
-
-        <div class="countWrapper empty">
-            <div>
-                Your Cart: Empty
-            </div>
-        </div>
-        <div class="valign100h"></div>
-    </div>
-    {% else %}
-
-    <div class="cartWrapper">
-
-
-
-        <form id="cart-form" action="https://icvtemplates.com/templates?c=9" method="post" data-pjax>
-            <input type="hidden" name="_csrf" value="TjMtV0hCdDQeXVkZCS5NdStxfwEwOhlsOwV8GicIMX8/eFthezcmQA==">
-            <div class="countWrapper">
-                <div>
-                    Your Cart: {{ cart_count|floatformat:0 }} item{{ cart_count|pluralize }} </div>
-            </div>
-            <div class="itemsWrapper">
-                <div>
-                    {% for item in cart_items %}
-                    <div class="item">
-                        <div>
-                            <div class="price">
-                                ${{ item.product.product_price }} <span class="formattingPriceWrapper">{% if item.extra_charge != 0 %} + ${{ item.extra_charge }} {% endif %}</span>
-                            </div>
-                            <a href="{% url 'ecommerce_cart:remove-from-cart' item_id=item.id %}" class="removeBtn">
-                                <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
-                            </a>
-                        </div>
-                        <div class="imgWrapper">
-                            <a href="{% url 'product:product_detail' product_slug=item.product.slug %}">
-                                {% if item.product.image_1 %}
-                                    <img src="{{ item.product.image_1.url }}">
-                                {% else %}
-                                    <img src="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}">
-                                {% endif %}
-                            </a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="actionWrapper">
-                <div class="total">
-                    <div>
-                        Total: <span>${{ cart_total }}</span>
-                    </div>
-                </div>
-                <div class="btnWrapper">
-                    <div>
-                        <a href="{% url 'ecommerce_cart:check_out_address' %}" class="buyBtn">
-                            Buy
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    {% endif %}
-
-    <div class="cartOverlay"></div>
+    {% include 'cart_ajax.html' %}
 
     {% block header %}
 
@@ -209,12 +143,12 @@
                       </a>
                     </li>
                     <li>
-                      <a href="/cvcontent">
+                      <a href="{% url 'blog:blog_list' %}">
                         <div>Blogs</div>
                       </a>
                     </li>
                     <li>
-                      <a href="/cvcontent">
+                      <a href="{% url 'case_study' %}">
                         <div>Case Studies</div>
                       </a>
                     </li>

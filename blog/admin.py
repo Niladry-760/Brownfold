@@ -19,7 +19,7 @@ class BlogCommentAdmin(admin.ModelAdmin):
     Admin for BlogComments
     """
     model = BlogComments
-    list_display = ['name', 'email', 'comment', 'blog', ]
+    list_display = ['name', 'comment', 'blog', ]
     search_fields = ['comment', ]
     #readonly_fields = ('user',)
 

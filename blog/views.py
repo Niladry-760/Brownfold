@@ -29,12 +29,11 @@ class BlogListView(CommonMixin, ListView):
         context = super(BlogListView, self).get_context_data(**kwargs)
 
         context['blog_categories'] = BlogCategories.objects.all().order_by('title')
-        context['latest_blogs'] = Blog.objects.all().order_by('id')[:3]
+        context['latest_blogs'] = Blog.objects.all().order_by('-id')[:3]
         context['blog_tags'] = BlogTags.objects.all().order_by('id')
 
         return context
 
-@cache_page(60 * 15)
 def blog_details_view(request, blog_slug):
     """
     Blog Details View
@@ -53,16 +52,15 @@ def blog_details_view(request, blog_slug):
     related_blogs = Blog.objects.filter(category=blog_details.category).exclude(
         id=blog_details.id)[:2]
 
-    recent_comments = BlogComments.objects.all().order_by('-id')[:3]
+    recent_comments = BlogComments.objects.filter(blog=blog_details).order_by('-id')[:6]
 
     if request.method == "POST":
         comment_form = BlogCommentsForm(request.POST or None)
         if comment_form.is_valid():
             name = request.POST.get('name')
-            email = request.POST.get('email')
             comment = request.POST.get('comment')
             answer = BlogComments.objects.create(
-                name=name, email=email, comment=comment, blog=blog_details)
+                name=name, comment=comment, blog=blog_details)
             answer.save()
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
     else:
@@ -84,7 +82,6 @@ def blog_details_view(request, blog_slug):
     }
     return CommonMixin.render(request, 'blog_details.html', context)
 
-@cache_page(60 * 15)
 def blog_categories_details(request, blog_category_slug):
     """
     Blog Category detail view
@@ -120,7 +117,7 @@ def blog_categories_details(request, blog_category_slug):
     }
     return CommonMixin.render(request, 'blog_category_details.html', context)
 
-@cache_page(60 * 15)
+
 def blog_tag_details(request, blog_tag_slug):
     """
     Blog Tag Detail View

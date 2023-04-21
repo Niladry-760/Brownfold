@@ -76,73 +76,11 @@
 
 </head>
 
-<body class="" onload="get_before_consult()">
-  {% if cart_count == 0 %}
-    <div class="cartWrapper">
+<body class="" onload="defaulf_consult()">
+  
+  {% include 'cart_ajax.html' %}
 
 
-        <div class="countWrapper empty">
-            <div>
-                Your Cart: Empty
-            </div>
-        </div>
-        <div class="valign100h"></div>
-    </div>
-    {% else %}
-
-    <div class="cartWrapper">
-
-
-
-        <form id="cart-form" action="https://icvtemplates.com/templates?c=9" method="post" data-pjax>
-            <input type="hidden" name="_csrf" value="TjMtV0hCdDQeXVkZCS5NdStxfwEwOhlsOwV8GicIMX8/eFthezcmQA==">
-            <div class="countWrapper">
-                <div>
-                    Your Cart: {{ cart_count|floatformat:0 }} item{{ cart_count|pluralize }} </div>
-            </div>
-            <div class="itemsWrapper">
-                <div>
-                    {% for item in cart_items %}
-                    <div class="item">
-                        <div>
-                            <div class="price">
-                                ${{ item.product.product_price }} <span class="formattingPriceWrapper"></span>
-                            </div>
-                            <a href="{% url 'ecommerce_cart:remove-from-cart' item_id=item.id %}" class="removeBtn removeFromCart">
-                                <img src="{% static 'assets/d44acf32/img/cross.svg' %}" class="svg">
-                            </a>
-                        </div>
-                        <div class="imgWrapper">
-                            <a href="{% url 'product:product_detail' product_slug=item.product.slug %}">
-                                {% if item.product.image_1 %}
-                                    <img src="{{ item.product.image_1.url }}">
-                                {% else %}
-                                    <img src="{% static 'uploads/product/66/7e9a6bc3d484a1dc4b3ce7bbff386016.png' %}">
-                                {% endif %}
-                            </a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="actionWrapper">
-                <div class="total">
-                    <div>
-                        Total: <span>${{ cart_total }}</span>
-                    </div>
-                </div>
-                <div class="btnWrapper">
-                    <div>
-                        <a href="{% url 'ecommerce_cart:check_out_address' %}" class="buyBtn">
-                            Buy
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    {% endif %}
-  <div class="cartOverlay"></div>
 
   <header>
     <a href="/" class="logoWrapper">
@@ -369,36 +307,38 @@
               <div class="wrapper">
                 <div class="featureColumn">
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature1.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">Industry leading designers</div>
+                      <div class="title">Luli Granter</div>
                       <div class="text">
-                        ICV Templates are designed by professionally by
-                        keeping in mind the requirements of individuals and
-                        displaying it in a very unique style.
+                        CEO/CTO
                       </div>
                     </div>
                   </div>
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature2.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team1.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">WORD FILE</div>
+                      <div class="title">MATHEW JHONTHON BALLEI</div>
                       <div class="text">
-                        Files are available in word format for Microsoft
-                        ooffice 2007 вЂ“ 2016 and Mac office 2016, all
-                        templates are A4 paper size, portrait and landscape
-                        format.
+                        MANAGER
                       </div>
                     </div>
                   </div>
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature3.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team2.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">GRAPHICAL ELEMENTS</div>
+                      <div class="title">STPHENE ROJER ANDREW</div>
                       <div class="text">
-                        Majority of our templates presents information in
-                        infographic style. We have used different element such
-                        as charts, icons and employment timeline
+                        HR/HOD
+                      </div>
+                    </div>
+                  </div>
+                  <div class="feature">
+                    <img class="svg" src="{% static 'assets/team_image/team3.jpg' %}" style="border-radius: 50%;"/>
+                    <div class="contentWrapper">
+                      <div class="title">Luli Granter</div>
+                      <div class="text">
+                        Team Leader
                       </div>
                     </div>
                   </div>
@@ -409,32 +349,38 @@
                 </div>
                 <div class="featureColumn">
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature4.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team4.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">YOUTUBE TUTORIALS</div>
+                      <div class="title">Luli Granter</div>
                       <div class="text">
-                        Our templates are easy to edit, we will provide
-                        detailed YouTube tutorials on how to edit template
-                        once itвЂ™s been purchased.
+                        Head Of Design
                       </div>
                     </div>
                   </div>
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature5.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team5.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">TEMPLATE DETAILS</div>
+                      <div class="title">MATHEW JHONTHON BALLEI</div>
                       <div class="text">
-                        Read the product description to see whether the
-                        contents matches you requirement
+                        Head Of Design
                       </div>
                     </div>
                   </div>
                   <div class="feature">
-                    <img class="svg" src="https://icvtemplates.com/assets/d44acf32/img/feature6.svg" />
+                    <img class="svg" src="{% static 'assets/team_image/team6.jpg' %}" style="border-radius: 50%;"/>
                     <div class="contentWrapper">
-                      <div class="title">SECURE PAYMENT</div>
+                      <div class="title">STPHENE ROJER ANDREW</div>
                       <div class="text">
-                        Easy payment via pay pal or Debit / Credit Card
+                        UI/UX DESIGNER
+                      </div>
+                    </div>
+                  </div>
+                  <div class="feature">
+                    <img class="svg" src="{% static 'assets/team_image/team7.jpg' %}" style="border-radius: 50%;"/>
+                    <div class="contentWrapper">
+                      <div class="title">Luli Granter</div>
+                      <div class="text">
+                        graphics DESIGNER
                       </div>
                     </div>
                   </div>
@@ -1424,110 +1370,26 @@
           </div>
 
           <div class="row your-class mx-2 mx-md-0 ">
+            {% for item in blog_list %}
             <div class="col-4  mt-5">
               <div class="row">
                 <div class="col-12">
+                  {% if item.blog_image %}
+                  <img src="{{ item.blog_image.url }}" class="img-fluid img-sizing " alt="" srcset="" style="height: 14rem;">
+                  {% else %}
                   <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
+                  {% endif %}
                 </div>
                 <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
+                  <a href="{% url 'blog:blogdetail' blog_slug=item.slug %}" style="text-decoration: auto;"><p class="top-text">{{ item.blog_title }}</p></a>
+                  
                 </div>
                 <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
+                  <p class="jan-text">{{ item.post_date|date }} &nbsp; 10 minute read</p>
                 </div>
               </div>
             </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/Image-2.svg' %}" class="img-fluid img-sizing " alt="no-image" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-3.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-4  mt-5">
-              <div class="row">
-                <div class="col-12">
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
-                </div>
-                <div class="col-12 mt-3">
-                  <p class="top-text">Top 5 Effective Usability Metrics</p>
-                </div>
-                <div class="col-12">
-                  <p class="jan-text">Jan 30, 2023 &nbsp; 10 minute read</p>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
 
           <img src="{% static 'assets/images/Group-arrow.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
@@ -1624,12 +1486,12 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/cvcontent">
+                  <a href="{% url 'blog:blog_list' %}">
                     <div>Blogs</div>
                   </a>
                 </li>
                 <li>
-                  <a href="/cvcontent">
+                  <a href="{% url 'case_study' %}">
                     <div>Case Studies</div>
                   </a>
                 </li>
@@ -1845,14 +1707,44 @@
   <script>
     function get_consult() {
       document.getElementById("get-consult-form").style.display = "none";
-      document.getElementById("consul-form").style.display = "unset";
+      var fade = document.getElementById("consul-form");
+        var opacity = 0;
+        var intervalID = setInterval(function() {
+      
+            if (opacity < 1) {
+                opacity = opacity + 0.1
+                fade.style.opacity = opacity;
+                document.getElementById("consul-form").style.display = "unset";
+            } else {
+                clearInterval(intervalID);
+            }
+        }, 200);
     }
 
     function get_before_consult() {
-      document.getElementById("get-consult-form").style.display = "unset";
       document.getElementById("consul-form").style.display = "none";
+      var fade = document.getElementById("get-consult-form");
+        var opacity = 0;
+        var intervalID = setInterval(function() {
+      
+            if (opacity < 1) {
+                opacity = opacity + 0.1
+                fade.style.opacity = opacity;
+                document.getElementById("get-consult-form").style.display = "unset";
+            } else {
+                clearInterval(intervalID);
+            }
+        }, 200);
+      
+    }
+
+    function defaulf_consult() {
+      document.getElementById("consul-form").style.display = "none";
+      document.getElementById("get-consult-form").style.display = "unset";
     }
   </script>
+
+
 
 
 </body>

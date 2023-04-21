@@ -13,6 +13,7 @@ from .forms import QueryFromContactForm, QueryFromCallForm
 from .models import QueryFromContact, QueryFromCall, PeriodSelected
 from .common import *
 
+from blog.models import *
 from products.models import *
 from ecommerce_cart.models import *
 from user_profile.models import *
@@ -35,9 +36,11 @@ def index(request):
     else:
         query_form = QueryFromCallForm()
 
+    blog_list = Blog.objects.all().order_by('-id')[:8]
 
     context = {
         'form' : query_form,
+        'blog_list' : blog_list
     }
     return CommonMixin.render(request, 'index.html', context)
 
@@ -81,6 +84,21 @@ def terms_conditions(request):
     """
     context = {}
     return CommonMixin.render(request, 'terms_conditions.html', context)
+
+
+def case_study(request):
+    """
+    Case Study List
+    """
+    context = {}
+    return CommonMixin.render(request, 'case_study.html', context)
+
+def case_study_details(request):
+    """
+    Case Study DEtails
+    """
+    context = {}
+    return CommonMixin.render(request, 'case_study_details.html', context)
 
 
 def admin_index(request):

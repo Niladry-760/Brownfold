@@ -9,7 +9,7 @@ app_name = 'blog'
 
 urlpatterns = [
 
-    url(r'^$', cache_page(60*15)(views.BlogListView.as_view()), name='blog_list'),
+    url(r'^$', views.BlogListView.as_view(), name='blog_list'),
 
     url(r'^(?P<blog_slug>[\w-]+)/$',
         views.blog_details_view, name='blogdetail'),
