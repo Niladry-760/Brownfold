@@ -99,7 +99,7 @@
                                             {% endif %}
                                         </a>
                                         <a class="toCartBtn" href="{% url 'ecommerce_cart:add_to_cart' product_id=obj.id %}" data-formatting="{{ obj.product_price }}"
-                                            onclick='update_anchor("{% url 'ecommerce_cart:add_to_cart' product_id=obj.id %}")'
+                                                onclick="update_anchor({{ obj.id }})"
                                             {% if obj.image_1 %} 
                                                 data-img="{{ obj.image_1.url }}"
                                             {% else %}
@@ -164,40 +164,64 @@
 
     {% block js %}
 
-    {% if messages %} 
-        {% for message in messages %}
-            <script>
-                function update_link()
-                {
-                    document.getElementById("show_notify").style.display = "none";
-                    document.body.classList.add("showCart"); 
-                }
-                window.onload = setTimeout(update_link, 5000)
-            </script>
-        {% endfor %}
-    {% endif %}
-
     <script type="text/javascript">
         
-        function update_anchor(url)
+        function update_anchor(id)
         {
             var link = document.getElementById("cart_link");
-            link.setAttribute("href", url);
+            link.setAttribute("onclick", "add_to_cart(" + id + ", 0)");
+
+            var checkBox = document.getElementById("formatting_cb");
+            checkBox.setAttribute("data", id);
         } 
       </script>
 
       <script>
         function update_final_link() {
             var checkBox = document.getElementById("formatting_cb");
-            var url = document.getElementById("cart_link").href;
-            console.log(url)
+            var url = document.getElementById("cart_link");
+
+            var extra_charge = checkBox.getAttribute("data")
+            var id_int = parseInt(extra_charge)
+            console.log(id_int)
+
             if (checkBox.checked == true){
-                final_url = url.concat("?extra_charge=25")
+                url.setAttribute("onclick", "add_to_cart(" + id_int + ", " + 25 + ")");
             } else {
-                final_url = url
+                url.setAttribute("onclick", "add_to_cart(" + id_int + ", 0)");
             }
-            var link = document.getElementById("cart_link");
-            link.setAttribute("href", final_url);
+        }
+      </script>
+
+
+      <script>
+        function update_link()
+        {
+            document.getElementById("show_notify_cart").style.display = "none";
+            document.body.classList.add("showCart"); 
+        }
+        function add_to_cart(product_id, extra_charge) {
+            $.ajax({
+                url: '{% url "ecommerce_cart:add_to_cart_ajax" %}',
+                data: {
+                    'product_id' : product_id,
+                    'extra_charge' : extra_charge,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    $('#cart_content').html(response['html']);
+                    document.getElementById("cart_popup").style.display = "none"; 
+                    document.getElementById("show_notify_cart").style.display = "unset"; 
+                    document.getElementById("show_notify_cart").innerHTML = "<div>Selected Product Successfully Added to Cart!</div>";
+                    setTimeout(update_link, 2000);
+
+                },
+                error: function (rs, e) {
+                    console.log(rs);
+                    console.log(e)
+                }
+            });
+
         }
       </script>
 

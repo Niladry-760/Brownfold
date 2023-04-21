@@ -88,7 +88,10 @@
 
 <body class="beforePreload ">
 
-    {% include 'cart_ajax.html' %}
+    <div id="cart_content">
+        {% include 'cart_ajax.html' %}
+    </div>
+    
 
     {% block header %}
 
@@ -289,9 +292,13 @@
         {% endfor %}
     {% endif %}
 
+    <div class="notify show" id="show_notify_cart" style="display: none;">
+        <div></div>
+    </div>
+
 
     {% block popup %}
-    <div class="addFormattingPopup">
+    <div class="addFormattingPopup" id="cart_popup">
         <div class="outer">
             <div class="inner">
                 <div class="wrapper">
@@ -337,7 +344,7 @@
                         <a href="#" class="cancelBtn">
                             Cancel
                         </a>
-                        <a href="#" id="cart_link" style="color: #fff;background-color: #181818;">
+                        <a id="cart_link" style="color: #fff;background-color: #181818;cursor: pointer;">
                             Proceed to Buy
                         </a>
                     </div>

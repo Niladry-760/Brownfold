@@ -1,0 +1,18 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} Page Not Found {% endblock %}
+
+{% block content %}
+<section class="error">
+
+    <div class="inner">
+        <h1>404</h1>
+        <h2>Error</h2>
+        <a href="{% url 'index' %}" class="btn">
+            Go to homepage
+        </a>
+    </div>
+
+</section>
+{% endblock %}

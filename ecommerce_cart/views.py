@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db import transaction
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.template.loader import render_to_string
 from django.db.models import Sum, Value, Count, FloatField, IntegerField
 from django.views.generic import ListView, DetailView
 from django.db.models.functions import Coalesce
@@ -206,6 +207,81 @@ def checkout_confirm_page(request):
         'applied_address' : applied_address
     }
     return CommonMixin.render(request, "check_out_confirm.html", context)
+
+
+def cart_view(request):
+    """
+    Cart Page
+    """
+    try:
+        device = request.COOKIES['device']
+    except KeyError as error:
+        device = None
+    except Exception as exception:
+        device = None
+
+    customer = Customer.objects.filter(device=device).first()
+    if not customer:
+        created = Customer.objects.create(device=device)
+        created.save()
+    
+
+    context = {}
+    return CommonMixin.render(request, "cart.html", context)
+
+
+def add_to_cart_ajax(request):
+    """
+    Add to Cart Ajax View
+    """
+    extra_charge = request.GET.get('extra_charge', 0)
+    product_id = request.GET.get('product_id', 0)
+
+    try:
+        device = request.COOKIES['device']
+    except KeyError as error:
+        device = None
+    except Exception as exception:
+        device = None
+
+    with transaction.atomic():
+
+        customer = Customer.objects.filter(device=device).first()
+        if not customer:
+            created = Customer.objects.create(device=device)
+            created.save()
+
+        add_item = CartItems.objects.create(
+            product_id=product_id, customer=customer, ref_code=generate_order_id(), extra_charge=extra_charge)
+
+        add_item.save()
+
+    cart_items = CartItems.objects.filter(
+            customer=customer, is_ordered=False)
+    
+    cart_total = cart_items.aggregate(
+            the_sum=Coalesce(Sum('cart_total'), Value(0), output_field=IntegerField()))['the_sum']
+
+    cart_count = cart_items.aggregate(
+        the_sum=Coalesce(Count('id'), Value(0), output_field=FloatField()))['the_sum']  # Cart Item Count
+
+    messages.success(
+        request, 'Selected Product is successfully added to cart')
+    
+    context = {
+        'customer' : customer,
+        'cart_total' : cart_total,
+        'cart_items' : cart_items,
+        'cart_count' : cart_count
+    }
+    if request.is_ajax():
+        html = render_to_string('cart_ajax.html',
+                                context, request=request)
+
+    data = {
+        'html' : html
+    }
+    return JsonResponse(data)
 
 
 ############################# Admin Templates ##############################

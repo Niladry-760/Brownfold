@@ -22,6 +22,10 @@ urlpatterns = [
 
     url(r'^checkout/confirm/$', views.checkout_confirm_page, name='checkout_confirm_page'),
 
+    url(r'^cart/page/$', views.cart_view, name='cart_view'),
+
+    url(r'^cart/add/ajax/$', views.add_to_cart_ajax, name='add_to_cart_ajax'),
+
 
     ##### Admin Urls #####
 

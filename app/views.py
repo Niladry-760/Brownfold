@@ -86,6 +86,42 @@ def terms_conditions(request):
     return CommonMixin.render(request, 'terms_conditions.html', context)
 
 
+def my_custom_permission_denied_view(request,exception):
+    """
+     404 Page  View 
+    """
+    try:
+        device = request.COOKIES['device']
+    except KeyError as error:
+        device = None
+    except Exception as exception:
+        device = None
+
+
+    customer = Customer.objects.filter(device=device).first()
+    if not customer:
+        created = Customer.objects.create(device=device)
+        created.save()
+
+
+    cart_items = CartItems.objects.filter(
+            customer=customer, is_ordered=False)
+
+    cart_total = cart_items.aggregate(
+            the_sum=Coalesce(Sum('cart_total'), Value(0), output_field=IntegerField()))['the_sum']
+
+    cart_count = cart_items.aggregate(
+            the_sum=Coalesce(Count('id'), Value(0), output_field=FloatField()))['the_sum']  # Cart Item Count
+
+    context = {
+        'customer' : customer,
+        'cart_items' : cart_items,
+        'cart_total' : cart_total,
+        'cart_count' : cart_count
+    }
+    return render(request,'404.html',context)
+
+
 def case_study(request):
     """
     Case Study List
