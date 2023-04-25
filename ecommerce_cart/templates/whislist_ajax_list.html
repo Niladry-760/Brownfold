@@ -35,7 +35,7 @@
                             <a href="templates481e.html?c=4">
                                 {{ obj.product.category.name }} </a>
                         </div>
-                        <a href="templates/Arch1.html" class="title">
+                        <a href="{% url 'product:product_detail' product_slug=obj.product.slug %}" class="title">
                             {{ obj.product.name }}</a>
                         <div class="infoWrapper">
                             <div class="ratingWrapper">

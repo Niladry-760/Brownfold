@@ -91,7 +91,7 @@
 
                                 <div class="imgWrapper">
                                     <div class="imgBlock">
-                                        <a href="templates/Arch1.html" class="toProfile">
+                                        <a href="{% url 'product:product_detail' product_slug=obj.slug %}" class="toProfile">
                                             {% if obj.image_1 %}
                                                 <img src="{{ obj.image_1.url }}"
                                                     alt="Tempalte 1"> 
@@ -123,7 +123,7 @@
                                         <a href="templates481e.html?c=4">
                                             {{ obj.category.name }} </a>
                                     </div>
-                                    <a href="templates/Arch1.html" class="title">
+                                    <a href="{% url 'product:product_detail' product_slug=obj.slug %}" class="title">
                                         {{ obj.name }}</a>
                                     <div class="infoWrapper">
                                         <div class="ratingWrapper">
