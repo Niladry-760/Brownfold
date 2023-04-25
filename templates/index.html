@@ -49,6 +49,12 @@
   <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.css" />
 
+  <style>
+        textarea:focus, input:focus{
+        outline: none;
+    }
+  </style>
+
 
   <script type="text/javascript">
     function getCookie(name) {
@@ -266,40 +272,51 @@
               <div class="swiper-slide">
                 <div class="smallLabel">
                   <div>
-                    heading<br />
-
+                    Case Study <br />
+                    <span>COX + BrownFold</span>
                   </div>
                 </div>
                 <div class="text">
-                  <div>
-                    content
-                    <span>bold</span> content
+                  <div class="text-center">
+                    How two internal teams boost production design with extra workstreams.
+                      to make sure each of our products are easy to use<br>
+                      <a href="{% url 'case_study' %}" class="viewTplMobileBtn">
+                        <div>Read the case study</div>
+                      </a>
                   </div>
                 </div>
               </div>
               <div class="swiper-slide">
                 <div class="smallLabel">
                   <div>
-                    heading<br />
-
+                    Marketplace <br />
+                    <span>Professional Design For A Business</span>
                   </div>
                 </div>
                 <div class="text">
-                  <div>
-                    content
+                  <div class="text-center">
+                    It is important to present your information in clear, concise,
+                    chronological and easy-to-read format.<br>
+                    <a href="{% url 'product:all_product_list' %}" class="viewTplMobileBtn">
+                      <div>Marketplace</div>
+                    </a>
                   </div>
                 </div>
               </div>
               <div class="swiper-slide">
                 <div class="smallLabel">
                   <div>
-                    heading <br />
-                    <span>heading</span>
+                    Blogs <br />
+                    <span>Connecting Informations</span>
                   </div>
                 </div>
                 <div class="text">
-                  <div>
-                    content
+                  <div class="text-center">
+                    It is important to present your information in clear, concise,
+                    chronological and easy-to-read format.<br>
+                    <a href="{% url 'blog:blog_list' %}" class="viewTplMobileBtn">
+                      <div>All Blogs</div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1389,7 +1406,7 @@
               <div class="row">
                 <div class="col-12">
                   {% if item.blog_image %}
-                  <img src="{{ item.blog_image.url }}" class="img-fluid img-sizing " alt="" srcset="" style="height: 14rem;">
+                  <img src="{{ item.blog_image.url }}" class="img-fluid img-sizing " alt="" srcset="" {% if request.user_agent.is_mobile %} style="height: 24rem;" {% else %} style="height: 14rem;" {% endif %}>
                   {% else %}
                   <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
                   {% endif %}
@@ -1479,7 +1496,7 @@
     <a href="#treading" data-menuanchor="clients"> 7 </a>
     <a href="#connect" data-menuanchor="connect"> 8 </a>
   </div>
-  <div class="menu">
+  <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% endif %}>
     <div class="wrapper">
       <div class="menuContent">
         <a href="/" class="logo">
@@ -1487,7 +1504,7 @@
         </a>
         <div class="outer">
           <div class="inner">
-            <nav>
+            <nav {% if request.user_agent.is_mobile %} style="max-width: 252px;" {% endif %}>
               <ul>
                 <li>
                   <a href="{% url 'index' %}">

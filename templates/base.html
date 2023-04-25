@@ -125,7 +125,7 @@
 
 
     {% block menu %}
-    <div class="menu">
+    <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% endif %}>
         <div class="wrapper">
           <div class="menuContent">
             <a href="/" class="logo">
@@ -133,7 +133,7 @@
             </a>
             <div class="outer">
               <div class="inner">
-                <nav>
+                <nav {% if request.user_agent.is_mobile %} style="max-width: 252px;" {% endif %}>
                   <ul>
                     <li>
                       <a href="{% url 'index' %}">

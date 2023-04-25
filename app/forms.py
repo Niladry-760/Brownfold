@@ -1,5 +1,29 @@
 from django import forms
-from .models import QueryFromContact, QueryFromCall
+from .models import QueryFromContact, QueryFromCall, PeriodSelected
+
+
+class DateInput(forms.DateInput):
+    """
+    Widgets support for date input
+    """
+    input_type = 'date'
+
+class DateRangeForm(forms.ModelForm):
+    """
+    Date Range Form
+    """
+    def __init__(self, *args, **kwargs):
+        super(DateRangeForm, self).__init__(*args, **kwargs)
+        self.fields['start_date'].widget.attrs = {'class': 'form-control', }
+        self.fields['end_date'].widget.attrs = {'class': 'form-control', }
+
+    class Meta:
+        model = PeriodSelected
+        fields = ('start_date', 'end_date')
+        widgets = {
+            'start_date': DateInput(),
+            'end_date': DateInput(),
+        }
 
 class QueryFromContactForm(forms.ModelForm):
     """

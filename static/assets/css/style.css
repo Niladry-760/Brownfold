@@ -26,6 +26,13 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
+}
+
 .duration03 {
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
@@ -745,6 +752,23 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
 
 .mainWrapper section.main .scrollBtn.show {
   opacity: 1;
+}
+
+.viewTplMobileBtn {
+    padding: 16px 24px 14px 24px;
+    border-radius: 16px;
+    background: #7127d0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 10px;
+    position: relative;
+    text-transform: uppercase;
+    text-decoration: none;
+    overflow: hidden;
+    display: inline-block;
+    margin-top: 2rem;
 }
 
 .mainWrapper section.main .textBlock .inner .viewTplBtn {

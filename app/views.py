@@ -4,12 +4,14 @@ import dateutil
 from datetime import timedelta
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.db.models import Sum, Value, Count, Avg, Case, When, F
 from django.db.models.functions import Coalesce
 
-from .forms import QueryFromContactForm, QueryFromCallForm
+from .forms import QueryFromContactForm, QueryFromCallForm, DateRangeForm
 from .models import QueryFromContact, QueryFromCall, PeriodSelected
 from .common import *
 
@@ -296,6 +298,40 @@ def admin_index(request):
         'top_stock_total': top_stock_total
     }
     return CommonMixin.render(request, 'metronics/index_admin.html', context)
+
+
+
+def period_selected_update(request):
+    """
+    Period selection (Update View)
+    """
+    data = {'is_error': False, 'error_message': ""}
+
+    # if not request.user.is_authenticated:
+    #     data['is_error'] = True
+    #     data['error_message'] = "Login Failed!"
+    #     return JsonResponse(data)
+
+    period_selected = PeriodSelected.objects.all().first()
+
+    if request.method == 'POST':
+        form = DateRangeForm(request.POST, instance=period_selected)
+
+        if form.is_valid():
+            form.save()
+        else:
+            data['is_error'] = True
+            data['error_message'] = "Please rectify the form error and then try again"
+    else:
+        form = DateRangeForm(instance=period_selected)
+
+    context = {
+        'form': form
+    }
+    data['html_form'] = render_to_string(
+        'selectdate_update.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 ########### Admin View ############

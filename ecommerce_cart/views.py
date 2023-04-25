@@ -67,9 +67,6 @@ def add_to_whislist(request, **kwargs):
 
     with transaction.atomic():
 
-        product.base_price = product.product_price
-        product.save()
-
         customer = Customer.objects.filter(device=device).first()
         if not customer:
             created = Customer.objects.create(device=device)
@@ -86,6 +83,39 @@ def add_to_whislist(request, **kwargs):
 
     messages.success(
         request, 'Selected Product is successfully added to wishlist')
+
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+def remove_from_whislist(request, **kwargs):
+    """
+    Remove From Whislist View
+    """
+    product = Product.objects.filter(id=kwargs.get('product_id', "")).first()
+
+    try:
+        device = request.COOKIES['device']
+    except KeyError as error:
+        print(error)
+        device = None
+    except Exception as exception:
+        print(exception)
+        device = None
+
+
+    with transaction.atomic():
+
+        customer = Customer.objects.filter(device=device).first()
+        if not customer:
+            created = Customer.objects.create(device=device)
+            created.save()
+
+
+        WhisList.objects.filter(
+            product=product, customer=customer).delete()
+
+        product.whislist_items.remove(customer)
+        product.save()
 
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
@@ -278,6 +308,64 @@ def add_to_cart_ajax(request):
         html = render_to_string('cart_ajax.html',
                                 context, request=request)
 
+    data = {
+        'html' : html
+    }
+    return JsonResponse(data)
+
+
+def remove_from_whislist_ajax(request):
+    """
+    Remove From Whislist Ajax
+    """
+    product_id = request.GET.get('product_id', 0)
+
+    try:
+        device = request.COOKIES['device']
+    except KeyError as error:
+        print(error)
+        device = None
+    except Exception as exception:
+        print(exception)
+        device = None
+
+    with transaction.atomic():
+
+        product = Product.objects.filter(id=product_id).first()
+
+        customer = Customer.objects.filter(device=device).first()
+        if not customer:
+            created = Customer.objects.create(device=device)
+            created.save()
+
+        WhisList.objects.filter(
+            product=product, customer=customer).delete()
+
+        product.whislist_items.remove(customer)
+        product.save()
+
+    cart_items = CartItems.objects.filter(
+            customer=customer, is_ordered=False)
+    
+    cart_total = cart_items.aggregate(
+            the_sum=Coalesce(Sum('cart_total'), Value(0), output_field=IntegerField()))['the_sum']
+
+    cart_count = cart_items.aggregate(
+        the_sum=Coalesce(Count('id'), Value(0), output_field=FloatField()))['the_sum']  # Cart Item Count
+    
+    existing_orders = WhisList.objects.filter(
+        customer=customer, is_carted=False)  # Getting Items in Cart
+    
+    context = {
+        'existing_orders' : existing_orders,
+        'customer' : customer,
+        'cart_total' : cart_total,
+        'cart_items' : cart_items,
+        'cart_count' : cart_count
+    }
+    html = render_to_string('whislist_ajax_list.html',
+                            context, request=request)
+    
     data = {
         'html' : html
     }
