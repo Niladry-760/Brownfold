@@ -39,17 +39,17 @@
         </a>
         <div class="actionBtnWrapper">
           <a href="{% url 'ecommerce_cart:whislist_view' %}" class="wishlistTrigger">
-            <img src="https://icvtemplates.com/assets/d44acf32/img/Favoritemenu.svg" class="svg stroke" />
+            <img src="{% static 'assets/d44acf32/img/Favoritemenu.svg' %}" class="svg stroke" />
           </a>
           <!--        <a href="#">-->
           <!--            <img src="--><!--/img/template.svg" class="svg stroke">-->
           <!--        </a>-->
           <a href="{% url 'ecommerce_cart:cart_view' %}" class="cartTrigger">
-            <img src="https://icvtemplates.com/assets/d44acf32/img/bag.svg" class="svg" />
+            <img src="{% static 'assets/d44acf32/img/bag.svg' %}" class="svg" />
             <span class="counter"></span>
           </a>
           <a href="#" class="menuTrigger">
-            <img src="https://icvtemplates.com/assets/d44acf32/img/menu.svg" class="svg stroke" />
+            <img src="{% static 'assets/d44acf32/img/menu.svg' %}" class="svg stroke" />
           </a>
         </div>
       </header>
@@ -191,8 +191,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
     <script src="{% static 'assets/js/slick-slider.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="https://icvtemplates.com/assets/220d0582/jquery.js?v=1430236984"></script>
-    <script src="https://icvtemplates.com/assets/2e3e25d2/yii.js?v=1438812030"></script>
+    <script src="{% static 'assets/220d0582/jquery.js' %}"></script>
+    <script src="{% static 'assets/2e3e25d2/yii.js' %}"></script>
     <script src="{% static 'assets/js/fullpage-slider.js' %}"></script>
     <script src="{% static 'assets/js/svgcovert.js' %}"></script>
     <script src="{% static 'assets/js/ui.js' %}"></script>
