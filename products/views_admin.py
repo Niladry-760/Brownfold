@@ -175,7 +175,7 @@ class ProductCreateView(CommonMixin, CreateView):
         return reverse('product:product_details_admin', kwargs={'product_slug' : self.object.slug})
     
 
-class ProductUpdateView(LoginRequiredMixin, CommonMixin, UpdateView):
+class ProductUpdateView(CommonMixin, UpdateView):
     """
     Product Update View
     """

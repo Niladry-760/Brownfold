@@ -6566,7 +6566,7 @@ section.error.popupIE .desc {
     bottom: 0;
     right: 0;
     margin: auto;
-    background: #181818;
+    /* background: #181818; */
     position: absolute;
   }
 
