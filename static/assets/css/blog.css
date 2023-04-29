@@ -110,6 +110,7 @@ body,#section_2 .card-body{
     border-bottom-left-radius:5rem;
     position: relative;
     right: 7rem;
+    border: 8px solid #7127d0;
 }
 .te .text-white{
     position: relative;
@@ -4364,9 +4365,10 @@ body.firstPage .preloader .radial-progress .inset .percentage {
   line-height: 20px;
   padding: 10px;
   min-width: 120px;
-  background-color: #181818;
+  background-color: #7127d0;
   text-align: center;
   text-transform: uppercase;
+  border: 1px solid #f4eded;
 }
 
 body.showCart {
