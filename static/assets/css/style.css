@@ -695,7 +695,7 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
 
 .mainWrapper section.main .imageBlock .imgWrapper.active+.imgWrapper,
 .mainWrapper section.main .imageBlock .imgWrapper.active+.imgWrapper+.imgWrapper {
-  opacity: 1;
+  /* opacity: 1; */
   -webkit-transform: translateX(calc(100% + 60px));
   -moz-transform: translateX(calc(100% + 60px));
   -ms-transform: translateX(calc(100% + 60px));
@@ -7987,7 +7987,7 @@ body.showMenu .menu .wrapper .newestTemplateWrapper .exploreBtn div {
   font-family: "Overpass";
   font-style: normal;
   font-weight: 400;
-  font-size: 48px;
+  font-size: 30px;
   line-height: 115%;
   /* or 115% */
   text-align: left;
@@ -8597,7 +8597,7 @@ button.slick-prev.slick-arrow {
   }
 
   .top-text {
-    font-size: 27px;
+    font-size: 20px;
   }
 
   .slider-dots {

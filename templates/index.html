@@ -583,7 +583,7 @@
 
     <section data-anchor="about" class="about withDraggable position-relative">
       <div class="back-pur d-none d-lg-block">
-        <img src="{% static 'assets/images/Ellipse-16.svg' %}" class="img-fluid " />
+        <img src="{% static 'assets/images/Ellipse-16.svg' %}" class="img-fluid "  style="width: -webkit-fill-available;"/>
       </div>
       <div class="wrapper ">
         <div class="textBlock">
@@ -810,7 +810,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-7" style="margin-top: 6rem;">
+      <div class="row mt-7" style="margin-top: 10rem;">
         <div class="col-12 d-flex justify-content-center  mt-3">
           <img src="{% static 'assets/images/Logo.svg' %}" class="img-fluid" alt="" srcset="">
         </div>
@@ -1403,9 +1403,9 @@
               <div class="row">
                 <div class="col-12">
                   {% if item.blog_image %}
-                  <img src="{{ item.blog_image.url }}" class="img-fluid img-sizing " alt="" srcset="" {% if request.user_agent.is_mobile %} style="height: 24rem;" {% else %} style="height: 14rem;" {% endif %}>
+                  <img src="{{ item.blog_image.url }}" class="img-fluid img-sizing blog_image" alt="" srcset="" {% if request.user_agent.is_mobile %} style="height: 24rem;" {% else %} style="height: 14rem; width: 25rem;" {% endif %}>
                   {% else %}
-                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing " alt="" srcset="">
+                  <img src="{% static 'assets/images/card-1.svg' %}" class="img-fluid img-sizing blog_image" alt="" srcset="">
                   {% endif %}
                 </div>
                 <div class="col-12 mt-3">

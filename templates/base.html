@@ -84,7 +84,7 @@
     {% endblock %}
 </head>
 
-<body class="beforePreload ">
+<body class="beforePreload " {% block bodystyle %} {% endblock %}>
 
     <div id="cart_content">
         {% include 'cart_ajax.html' %}

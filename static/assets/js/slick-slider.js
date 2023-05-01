@@ -4,8 +4,8 @@ $('.your-class').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: true,
-    // autoplay: true,
     centerPadding: '60px',
+    pauseOnHover: false, 
     responsive: [
         {
             breakpoint: 1024,
