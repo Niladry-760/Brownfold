@@ -1016,7 +1016,7 @@
                         <input type="text" class="form-control" name="subject" id="attachment"
                           placeholder="Upload Attachment">
                   </div> -->
-                    <div class="justify-content-center" style="margin-top: 2rem;">
+                    <div class="justify-content-center" id="submit-consult" style="margin-top: 2rem;">
                         <div class="col-md-5 form-group text-center">
                           <div class="col-12 d-flex justify-content-start">
                             <button class="see-2-btn" type="submit">BOOK NOW!</button>
@@ -1492,7 +1492,7 @@
     <a href="#treading" data-menuanchor="clients"> 7 </a>
     <a href="#connect" data-menuanchor="connect"> 8 </a>
   </div>
-  <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% endif %}>
+  <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% else %} style="background: url({% static 'assets/product_backgroung.png' %}) repeat-x; background-size: cover;"  {% endif %}>
     <div class="wrapper">
       <div class="menuContent">
         <a href="/" class="logo">
@@ -1734,6 +1734,7 @@
   <script>
     function get_consult() {
       document.getElementById("get-consult-form").style.display = "none";
+      document.getElementById("submit-consult").style.display = "none";
       var fade = document.getElementById("consul-form");
         var opacity = 0;
         var intervalID = setInterval(function() {
@@ -1746,10 +1747,21 @@
                 clearInterval(intervalID);
             }
         }, 100);
+
+        var set_ID = setInterval(function() {
+      
+          if (opacity < 1) {
+              document.getElementById("submit-consult").style.display = "block";
+              document.getElementById("submit-consult").style.marginTop = "2rem";
+          } else {
+              clearInterval(set_ID);
+          }
+      }, 500);
     }
 
     function get_before_consult() {
       document.getElementById("consul-form").style.display = "none";
+      document.getElementById("get-consult-button").style.display = "none";
       var fade = document.getElementById("get-consult-form");
         var opacity = 0;
         var intervalID = setInterval(function() {
@@ -1762,6 +1774,15 @@
                 clearInterval(intervalID);
             }
         }, 100);
+
+        var set_ID = setInterval(function() {
+      
+          if (opacity < 1) {
+              document.getElementById("get-consult-button").style.display = "block";
+          } else {
+              clearInterval(set_ID);
+          }
+      }, 500);
       
     }
 

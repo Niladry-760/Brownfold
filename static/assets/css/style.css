@@ -681,7 +681,6 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   bottom: 0;
   margin: auto;
   position: absolute;
-  background: #ffffff;
   opacity: 0;
   -webkit-transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -3654,7 +3653,7 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   content: "";
   width: 100%;
   height: 100%;
-  background-color: #f3f3f3;
+  background-color: transparent !important;
   position: absolute;
   left: 0;
   top: 0;
@@ -3671,7 +3670,6 @@ footer.light .snWrapper .snTrigger .svg.stroke * {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
-  background: #7127d0;
 }
 
 .menu .wrapper .newestTemplateWrapper .label {

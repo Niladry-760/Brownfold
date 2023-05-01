@@ -117,7 +117,7 @@
     </section>
 
 
-    <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% endif %}>
+    <div class="menu" {% if request.user_agent.is_mobile %} style="background: #fde722;" {% else %} style="background: url({% static 'assets/product_backgroung.png' %}) repeat-x; background-size: cover;"  {% endif %}>
         <div class="wrapper">
           <div class="menuContent">
             <a href="/" class="logo">
